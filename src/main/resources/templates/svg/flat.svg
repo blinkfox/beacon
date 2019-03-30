@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="${b.leftWidth + b.rightWidth}" height="20">
+  <linearGradient id="smooth" x2="0" y2="100%">
+    <stop offset="0" stop-color="#bbb" stop-opacity=".1"/>
+    <stop offset="1" stop-opacity=".1"/>
+  </linearGradient>
+
+  <clipPath id="round">
+    <rect width="${b.leftWidth + b.rightWidth}" height="20" rx="3" fill="#fff"/>
+  </clipPath>
+
+  <g clip-path="url(#round)">
+    <rect width="${b.leftWidth}" height="20" fill="${b.labelColor}"/>
+    <rect x="${b.leftWidth}" width="${b.rightWidth}" height="20" fill="${b.color}"/>
+    <rect width="${b.leftWidth + b.rightWidth}" height="20" fill="url(#smooth)"/>
+  </g>
+
+  <g fill="#fff" text-anchor="middle" font-family="DejaVu Sans,Verdana,Geneva,sans-serif" font-size="110">
+    @if (isNotEmpty(b.label)) {
+    <text x="${((b.leftWidth / 2) + 1) * 10}" y="150" fill="#010101" fill-opacity=".3" transform="scale(0.1)" textLength="${(b.leftWidth - 10) * 10}" lengthAdjust="spacing">${b.label}</text>
+    <text x="${((b.leftWidth / 2) + 1) * 10}" y="140" transform="scale(0.1)" textLength="${(b.leftWidth - 10) * 10}" lengthAdjust="spacing">${b.label}</text>
+    @}
+    <text x="${(b.leftWidth + b.rightWidth / 2 - (isNotEmpty(b.label) ? 1 : 0 )) * 10}" y="150" fill="#010101" fill-opacity=".3" transform="scale(0.1)" textLength="${(b.rightWidth - 10) * 10}" lengthAdjust="spacing">${b.message}</text>
+    <text x="${(b.leftWidth + b.rightWidth / 2 - (isNotEmpty(b.label) ? 1 : 0 )) * 10}" y="140" transform="scale(0.1)" textLength="${(b.rightWidth - 10) * 10}" lengthAdjust="spacing">${b.message}</text>
+  </g>
+
+</svg>
