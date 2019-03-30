@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Beacon,一个徽章服务.</title>
+    <link rel="stylesheet" href="css/prism.css">
+    <link rel="stylesheet" href="css/hack.css">
+    <link rel="stylesheet" href="css/index.css">
+</head>
+
+<body class="hack">
+<div class="main container">
+    <h1>你好，世界!</h1>
+    标签风格：
+    <img src="/badge/Hello-Wolrd-brightgreen.svg" alt="Hello Wolrd!">
+    <img src="/badge/Java-1.8-green.svg" alt="Java1.8">
+    <img src="/badge/SpringBoot-2.13-blue.svg" alt="SpringBoot 2.13">
+    <p>As you can see, this website is proudly built using hack.css.</p>
+    <div class="alert alert-info">New! <a href="/dark.html">dark</a>, <a href="/dark-grey.html">dark-grey</a>, <a
+            href="/solarized-dark.html">solarized-dark</a> and <a href="/standard.html">standard</a> modes are now available!
+    </div>
+
+    <h2>表单</h2>
+    <fieldset class="form-group form-success">
+        <label for="badge-style">徽章风格:</label>
+        <select id="badge-style" class="badge-input form-control">
+            <option>Flat</option>
+            <option>U.S.</option>
+            <option>U.K.</option>
+            <option>Japan</option>
+        </select>
+    </fieldset>
+        <input id="label" type="text" placeholder="label" class="badge-input form-control">
+        <input id="message" type="text" placeholder="message" class="badge-input form-control">
+        <input id="color" type="text" placeholder="color" class="badge-input form-control">
+        <button class="btn btn-success btn-ghost" onclick="generateBadge();">制作徽章</button>
+
+    <pre class=" language-html"><code class=" language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>btn-group<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>btn btn-success btn-ghost<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>Left<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>btn btn-success btn-ghost<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>Middle<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>btn btn-success btn-ghost<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>Right<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+</code></pre>
+
+    <h2>About</h2>
+    <p>Many hackers enjoy the readability of markdown code, some stylings in hack.css are exactly the way markdown is.</p>
+    <ul>
+        <li>conquer the world</li>
+        <li>rule the web</li>
+        <li>copy the code</li>
+    </ul>
+    <p>hack.css is inspired by <a href="https://github.com/mrcoles/markdown-css" target="_blank">markdown.css</a>
+        and <a href="http://zeit.co" target="_blank">zeit.co</a></p>
+</div>
+
+<script>
+    function generateBadge() {
+        var label = document.getElementById("label").value;
+        var message = document.getElementById("message").value;
+        var color = document.getElementById("color").value;
+        window.open('http://127.0.0.1:8080/badge/label-message-color.svg', '_blank');
+    }
+</script>
+</body>
+</html>

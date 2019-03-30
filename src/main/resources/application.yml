@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: beacon
+
+# 日志相关的简单配置.
+logging:
+  file: logs/beacon.log
+  level:
+    root: info
+    org:
+      apache: warn
+      springframework: warn
