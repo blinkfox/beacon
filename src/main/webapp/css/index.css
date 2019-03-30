@@ -2,17 +2,29 @@
     padding: 20px 10px;
 }
 
-.badge-form {
-    margin: 0 auto;
-    text-align: center;
+.hack h1 {
+    padding-top: 0;
+}
+
+.badge-style,
+.color-style,
+.make-bage {
+    margin-bottom: 1.95rem;
 }
 
 .badge-input {
-    width: 10rem;
+    width: 8rem;
+    margin-right: 0.35rem;
+    text-align: center;
+    text-align-last: center;
 }
 
 :not(pre) > code[class*="language-"],
 pre[class*="language-"] {
     background-color: transparent;
     font-weight: normal;
+}
+
+.hack code {
+    color: #e96900;
 }
