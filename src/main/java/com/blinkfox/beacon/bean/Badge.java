@@ -39,14 +39,4 @@ public class Badge {
      */
     private String style;
 
-    /**
-     * 徽章左边文本所占的宽度.
-     */
-    private int leftWidth;
-
-    /**
-     * 徽章右边边文本所占的宽度.
-     */
-    private int rightWidth;
-
 }
