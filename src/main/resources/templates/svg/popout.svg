@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="${leftWidth + rightWidth}" height="40">
+  <linearGradient id="smooth" x2="0" y2="100%">
+    <stop offset="0" stop-color="#bbb" stop-opacity=".1"/>
+    <stop offset="1" stop-opacity=".1"/>
+  </linearGradient>
+
+  <clipPath id="round">
+    <rect width="${leftWidth + rightWidth}" y="10" height="20" rx="3" fill="#fff"/>
+  </clipPath>
+
+  <g clip-path="url(#round)">
+    <rect width="${leftWidth}" y="10" height="20" fill="${labelColor}"/>
+    <rect x="${leftWidth}" y="10" width="${rightWidth}" height="20" fill="${color}"/>
+    <rect width="${leftWidth + rightWidth}" y="10" height="20" fill="url(#smooth)"/>
+  </g>
+
+  <g fill="#fff" text-anchor="middle" font-family="DejaVu Sans,Verdana,Geneva,sans-serif" font-size="110">
+    <text x="${((leftWidth / 2) + 1) * 10}" y="250" fill="#010101" fill-opacity=".3" transform="scale(0.1)" textLength="${(leftWidth - 10) * 10}" lengthAdjust="spacing">${label}</text>
+    <text x="${((leftWidth / 2) + 1) * 10}" y="240" transform="scale(0.1)" textLength="${(leftWidth - 10) * 10}" lengthAdjust="spacing">${label}</text>
+    <text x="${(leftWidth + rightWidth / 2 - 1) * 10}" y="250" fill="#010101" fill-opacity=".3" transform="scale(0.1)" textLength="${(rightWidth - 10) * 10}" lengthAdjust="spacing">${message}</text>
+    <text x="${(leftWidth + rightWidth / 2 - 1) * 10}" y="240" transform="scale(0.1)" textLength="${(rightWidth - 10) * 10}" lengthAdjust="spacing">${message}</text>
+  </g>
+</svg>

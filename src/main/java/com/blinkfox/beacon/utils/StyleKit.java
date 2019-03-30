@@ -28,7 +28,6 @@ public final class StyleKit {
         styleSet.add("plastic");
         styleSet.add("flat");
         styleSet.add("flat-square");
-        styleSet.add("for-the-badge");
         styleSet.add("popout");
         styleSet.add("popout-square");
         styleSet.add("social");
