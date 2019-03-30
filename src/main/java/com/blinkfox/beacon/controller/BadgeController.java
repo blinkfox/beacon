@@ -8,10 +8,7 @@ import com.blinkfox.beacon.utils.StyleKit;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
-import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
-
-import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -28,7 +25,6 @@ import org.springframework.web.bind.annotation.RestController;
  *
  * @author blinkfox on 2019-03-28.
  */
-@Slf4j
 @Api(tags = "徽章接口")
 @RestController
 @RequestMapping("/badge")
@@ -38,12 +34,11 @@ public class BadgeController {
     private BadgeService badgeService;
 
     /**
-     * HttpHeaders.
+     * 该实例全局的 HttpHeaders，设置返回内容为 svg.
      */
-    private HttpHeaders svgHeader;
+    private static HttpHeaders svgHeader;
 
-    @PostConstruct
-    public void initHeader() {
+    static {
         svgHeader = new HttpHeaders();
         svgHeader.setContentType(MediaType.valueOf("image/svg+xml"));
     }

@@ -54,7 +54,6 @@ public final class TextWidthKit {
             // 读取jar包中的资源文件流，并转换为本地文件，方便后续的读写操作.
             File file = new File(FileUtils.getTempDirectory().getAbsolutePath() + File.separator +  filePath);
             FileUtils.forceMkdirParent(file);
-            log.info("文件目录:{}", file.getAbsolutePath());
             FileUtils.copyInputStreamToFile(new DefaultResourceLoader().getResource(filePath).getInputStream(), file);
 
             // 按行读取文件中的内容，并将字符作为key，宽度作为value存放到charWidthMap集合中，完成后删除临时文件.
