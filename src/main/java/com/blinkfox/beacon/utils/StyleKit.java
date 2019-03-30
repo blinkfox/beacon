@@ -26,6 +26,7 @@ public final class StyleKit {
 
     static {
         styleSet.add("flat");
+        styleSet.add("flat-square");
     }
 
     /**
