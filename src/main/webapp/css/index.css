@@ -12,6 +12,11 @@
     margin-bottom: 1.95rem;
 }
 
+.badge-style img,
+.color-style img {
+    margin-right: 0.3rem;
+}
+
 .badge-input {
     width: 8rem;
     margin-right: 0.35rem;
@@ -27,4 +32,8 @@ pre[class*="language-"] {
 
 .hack code {
     color: #e96900;
+}
+
+.hack .brightgreen {
+    color: #4c1;
 }

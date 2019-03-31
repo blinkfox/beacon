@@ -7,6 +7,7 @@ import com.blinkfox.beacon.service.BadgeService;
 
 import javax.annotation.Resource;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
@@ -40,10 +41,25 @@ public class BadgeControllerTest {
     /**
      * 测试获取徽章的方法.
      */
-    @Test
-    public void getBadge() throws Exception {
+    @Before
+    public void init() {
         Mockito.when(badgeService.generate(Mockito.any())).thenReturn(TEST_SVG);
+    }
+
+    /**
+     * 测试使用`-`来获取徽章的方法.
+     */
+    @Test
+    public void getBadgeByDash() throws Exception {
         this.mockMvc.perform(get("/badge/hello-world-blue.svg")).andExpect(status().isOk());
+    }
+
+    /**
+     * 测试使用`/`来获取徽章的方法.
+     */
+    @Test
+    public void getBadgeBySlash() throws Exception {
+        this.mockMvc.perform(get("/badge/hello/my-world/red.svg")).andExpect(status().isOk());
     }
 
 }

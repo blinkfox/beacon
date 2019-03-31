@@ -44,16 +44,61 @@ public class BadgeController {
     }
 
     /**
-     * 获取(或生成)徽章.
+     * 使用`-`的URL风格制作 svg 徽章的接口.
+     * <p>如：/badge/Hello-social-green.svg?style=social&labelColor=333</p>
+     *
+     * @param label 徽章左边的标签
+     * @param message 徽章左边的信息
+     * @param color 徽章右边的颜色
+     * @param labelColor 徽章左边的颜色
+     * @param style 徽章风格
+     * @return svg字符串
      */
-    @ApiOperation(value = "生成徽章的接口", notes = "通过 label, message, color 等参数来生成徽章的接口.")
+    @ApiOperation(value = "使用`-`的URL风格制作徽章的接口", notes = "通过 label, message, color 等参数来生成徽章的接口.")
     @GetMapping("/{label}-{message}-{color}.svg")
-    public ResponseEntity<String> getBadge(@PathVariable("label") String label,
+    public ResponseEntity<String> getBadgeByDash(@PathVariable("label") String label,
             @PathVariable("message") String message,
             @PathVariable(value = "color", required = false) String color,
             @RequestParam(value = "labelColor", required = false,
                     defaultValue = ColorKit.DEFAULT_LABEL_COLOR) String labelColor,
             @RequestParam(value = "style", required = false, defaultValue = StyleKit.DEFAULT_STYLE) String style) {
+        return this.getSvgBadge(label, message, color, labelColor, style);
+    }
+
+    /**
+     * 使用`/`的URL风格制作 svg 徽章的接口.
+     * <p>如：/badge/Hello/my-social/green.svg?style=flat-square&labelColor=333</p>
+     *
+     * @param label 徽章左边的标签
+     * @param message 徽章左边的信息
+     * @param color 徽章右边的颜色
+     * @param labelColor 徽章左边的颜色
+     * @param style 徽章风格
+     * @return svg字符串
+     */
+    @ApiOperation(value = "使用`/`的URL风格制作徽章的接口", notes = "通过 label, message, color 等参数来生成徽章的接口.")
+    @GetMapping("/{label}/{message}/{color}.svg")
+    public ResponseEntity<String> getBadgeBySlash(@PathVariable("label") String label,
+            @PathVariable("message") String message,
+            @PathVariable(value = "color", required = false) String color,
+            @RequestParam(value = "labelColor", required = false,
+                   defaultValue = ColorKit.DEFAULT_LABEL_COLOR) String labelColor,
+            @RequestParam(value = "style", required = false, defaultValue = StyleKit.DEFAULT_STYLE) String style) {
+        return this.getSvgBadge(label, message, color, labelColor, style);
+    }
+
+    /**
+     * 将客户端接口传递过来参数进行封装，并调用 servce 生成 svg 徽章返回给客户端.
+     *
+     * @param label 徽章左边的标签
+     * @param message 徽章左边的信息
+     * @param color 徽章右边的颜色
+     * @param labelColor 徽章左边的颜色
+     * @param style 徽章风格
+     * @return svg字符串
+     */
+    private ResponseEntity<String> getSvgBadge(String label, String message, String color,
+            String labelColor, String style) {
         return new ResponseEntity<>(badgeService.generate(new Badge()
                 .setLabel(label)
                 .setMessage(message)
