@@ -1,6 +1,7 @@
 package com.blinkfox.beacon.controller;
 
 import com.blinkfox.beacon.exception.BeaconException;
+
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
@@ -38,8 +39,8 @@ public class IndexController {
      *
      * @return string
      */
-    @GetMapping("/hello")
     @ResponseBody
+    @GetMapping("/hello")
     @ApiOperation(value = "Say Hello的示例接口")
     public ResponseEntity<String> say() {
         return ResponseEntity.ok("Hello Beacon!");
@@ -51,8 +52,8 @@ public class IndexController {
      * @param name 名称
      * @return string
      */
-    @GetMapping("/exception")
     @ResponseBody
+    @GetMapping("/exception")
     @ApiOperation(value = "测试异常情况时的示例接口")
     public ResponseEntity<String> exception(@RequestParam("name") String name) {
         if (StringUtils.isEmpty(name)) {

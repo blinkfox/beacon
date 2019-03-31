@@ -9,6 +9,7 @@ import com.blinkfox.beacon.utils.TextWidthKit;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 /**
@@ -26,10 +27,12 @@ public class BadgeService {
 
     /**
      * 根据 Badge 相关参数构建生成徽章.
+     * <p>使用了 caffeine 对接 SpringCache，cache 的 key 是 badge 对象的 toString() 的值.</p>
      *
      * @param badge Badge对象
      * @return 徽章的svg字符串
      */
+    @Cacheable(cacheNames = "badge", key = "#badge.toString()")
     public String generate(Badge badge) {
         // 分别计算该徽章 label 和 message 的16进制颜色值、徽章的风格以及徽章左右文本所需要占的宽度.
         // 并将这些值存放到 map 中作为参数上下文传递给beetl, 从而渲染出svg模板.

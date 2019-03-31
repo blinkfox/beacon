@@ -1,6 +1,12 @@
 spring:
   application:
     name: beacon
+  # 使用高性能的 caffeine 做缓存，来缓存badge，设置最大 2000 个 badge，访问 600 秒后过期.
+  cache:
+    type: caffeine
+    cache-names: badge
+    caffeine:
+      spec: maximumSize=2000,expireAfterAccess=600s
 
 # 日志相关的简单配置.
 logging:
@@ -8,5 +14,5 @@ logging:
   level:
     root: info
     org:
-      apache: warn
-      springframework: warn
+      apache: error
+      springframework: error

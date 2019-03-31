@@ -2,12 +2,14 @@ package com.blinkfox.beacon;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cache.annotation.EnableCaching;
 
 /**
  * 本服务的主要入口启动类.
  *
  * @author blinkfox on 2019-03-30.
  */
+@EnableCaching
 @SpringBootApplication
 public class BeaconApplication {
 

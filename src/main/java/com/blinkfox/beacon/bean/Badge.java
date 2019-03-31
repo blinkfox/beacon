@@ -39,4 +39,18 @@ public class Badge {
      */
     private String style;
 
+    /**
+     * 重写的该 badge 实体的 toString() 方法.
+     *
+     * @return 字符串
+     */
+    @Override
+    public String toString() {
+        return new StringBuilder("{label='").append(this.label)
+                .append("', message='").append(this.message)
+                .append("', labelColor='").append(this.labelColor)
+                .append("', color='").append(this.color)
+                .append("', style='").append(this.style)
+                .append("'}").toString();
+    }
 }
