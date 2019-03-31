@@ -14,6 +14,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -99,6 +100,13 @@ public class BadgeController {
      */
     private ResponseEntity<String> getSvgBadge(String label, String message, String color,
             String labelColor, String style) {
+        // 如果 message 是空的，则以 svg 徽章的方式来返回错误提示信息.
+        if (StringUtils.isEmpty(message)) {
+            label = "400";
+            message = "message not found";
+            color = ColorKit.RED;
+        }
+
         return new ResponseEntity<>(badgeService.generate(new Badge()
                 .setLabel(label)
                 .setMessage(message)

@@ -31,6 +31,16 @@ public final class ColorKit {
     public static final String DEFAULT_COLOR = "#4c1";
 
     /**
+     * 红色的key.
+     */
+    public static final String RED = "red";
+
+    /**
+     * 用红色来表示错误的颜色.
+     */
+    private static final String RED_COLOR = "#e05d44";
+
+    /**
      * 存放颜色别称和其对应的颜色值之间映射关系的Map.
      */
     private static final Map<String, String> colorMap = new HashMap<>();
@@ -41,14 +51,15 @@ public final class ColorKit {
         colorMap.put("yellow", "#dfb317");
         colorMap.put("yellowgreen", "#a4a61d");
         colorMap.put("orange", "#fe7d37");
-        colorMap.put("red", "#e05d44");
+        colorMap.put("red", RED_COLOR);
         colorMap.put("blue", "#007ec6");
         colorMap.put("grey", DEFAULT_LABEL_COLOR);
         colorMap.put("lightgrey", "#9f9f9f");
         colorMap.put("success", DEFAULT_COLOR);
         colorMap.put("informational", "#007ec6");
         colorMap.put("warn", "#dfb317");
-        colorMap.put("critical", "#e05d44");
+        colorMap.put("error", RED_COLOR);
+        colorMap.put("critical", RED_COLOR);
         colorMap.put("important", "#fe7d37");
         colorMap.put("inactive", "#9f9f9f");
         colorMap.put("blueviolet", "#7500da");
@@ -86,7 +97,7 @@ public final class ColorKit {
         }
 
         // 如果该颜色别称是在预定义好的颜色值，就直接返回该颜色值.
-        String color = colorMap.get(alias);
+        String color = colorMap.get(alias.toLowerCase());
         if (color != null) {
             return color;
         }
