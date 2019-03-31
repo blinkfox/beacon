@@ -23,10 +23,10 @@
         <li>支持多种样式风格和颜色主题</li>
     </ul>
 
-    <h2>快速开始</h2>
+    <h2>徽章介绍</h2>
 
     <h3>徽章样式风格</h3>
-    <p>徽章支持以下多种样式风格，其中 <code>flat</code> 是默认的样式风格。</p>
+    <p>徽章支持以下多种样式风格，其中<code>flat</code>是默认的样式风格。</p>
     <div class="badge-style">
         <img src="http://localhost:8080/badge/Hello-flat-green.svg?style=flat" alt="flat">
         <img src="http://localhost:8080/badge/Hello/flat-square/green.svg?style=flat-square" alt="flat-square">
@@ -39,33 +39,35 @@
 
     <h3>徽章颜色</h3>
     <p>徽章支持以下多种颜色，同时也支持任何3位或6位数的16进制颜色值（不含<code>#</code>号）。
-        其中 <code class="brightgreen">brightgreen</code> 是默认颜色。</p>
+        其中<code class="brightgreen">brightgreen</code>是默认颜色。</p>
     <div class="color-style">
-        <img src="/badge/brightgreen-brightgreen.svg" alt="brightgreen">
-        <img src="/badge/green-green.svg" alt="green">
-        <img src="/badge/blue-blue.svg" alt="blue">
-        <img src="/badge/yellowgreen-yellowgreen.svg" alt="yellowgreen">
-        <img src="/badge/yellow-yellow.svg" alt="yellow">
-        <img src="/badge/orange-orange.svg" alt="orange">
-        <img src="/badge/red-red.svg" alt="red">
-        <img src="/badge/blueviolet-blueviolet.svg" alt="blueviolet">
-        <img src="/badge/grey-grey.svg" alt="grey">
-        <img src="/badge/lightgrey-lightgrey.svg" alt="lightgrey">
+        <img src="http://localhost:8080/badge/-brightgreen-brightgreen.svg" alt="brightgreen">
+        <img src="http://localhost:8080/badge/-green-green.svg" alt="green">
+        <img src="http://localhost:8080/badge/-blue-blue.svg" alt="blue">
+        <img src="http://localhost:8080/badge/-yellowgreen-yellowgreen.svg" alt="yellowgreen">
+        <img src="http://localhost:8080/badge/-yellow-yellow.svg" alt="yellow">
+        <img src="http://localhost:8080/badge/-orange-orange.svg" alt="orange">
+        <img src="http://localhost:8080/badge/-red-red.svg" alt="red">
+        <img src="http://localhost:8080/badge/-blueviolet-blueviolet.svg" alt="blueviolet">
+        <img src="http://localhost:8080/badge/-grey-grey.svg" alt="grey">
+        <img src="http://localhost:8080/badge/-lightgrey-lightgrey.svg" alt="lightgrey">
     </div>
 
-    <h3>制作徽章</h3>
-    <div class="make-bage">
-        <select id="badge-style" class="badge-input form-control">
-            <option label="flat">flat</option>
-            <option>flat-square</option>
-            <option>plastic</option>
-            <option>popout</option>
-            <option>popout-square</option>
-            <option>social</option>
-        </select>
-        <input id="label" type="text" placeholder="label" class="badge-input form-control">
-        <input id="message" type="text" placeholder="message" class="badge-input form-control">
-        <select id="color" class="badge-input form-control">
+    <h2>制作徽章</h2>
+    <p>制作徽章需要使用到以下几个参数，其中仅<code>message</code>参数是必须的：</p>
+    <ul>
+        <li><code>label</code>: 徽章左边的文字，如果不填写，将会是空值。</li>
+        <li><code>message</code>: 徽章右边的文字，必填。</li>
+        <li><code>color</code>: 徽章右边的背景颜色，如果不填写，将会是<code class="brightgreen">brightgreen</code>，也可以填写任何16进制的颜色值（不含<code>#</code>号）。</li>
+        <li><code>style</code>: 徽章的整体风格，默认是<code>flat</code>。</li>
+        <li><code>labelColor</code>: 徽章左边的背景颜色，默认是<code class="grey">grey</code>，也可以填写任何16进制的颜色值（不含<code>#</code>号）。</li>
+    </ul>
+
+    <p>你不妨通过改变下面的输入框的值来制作你喜欢的徽章：</p>
+    <div id="mark-badge" class="make-bage">
+        <input id="label" type="text" v-model="label" placeholder="label" class="badge-input form-control">
+        <input id="message" type="text" v-model="message" placeholder="message" class="badge-input form-control">
+        <select id="color" v-model="color" class="badge-input form-control">
             <option>brightgreen</option>
             <option>green</option>
             <option>blue</option>
@@ -77,10 +79,19 @@
             <option>grey</option>
             <option>lightgrey</option>
         </select>
-        <button class="btn btn-primary btn-ghost" onclick="generateBadge();">制作徽章</button>
-    </div>
+        <select id="badge-style" v-model="style" class="badge-input form-control">
+            <option label="flat">flat</option>
+            <option>flat-square</option>
+            <option>plastic</option>
+            <option>popout</option>
+            <option>popout-square</option>
+            <option>social</option>
+        </select>
+        #<input id="labelColor" type="text" v-model="labelColor" value="4c1" placeholder="labelColor" class="badge-input form-control">
+        <button class="btn btn-primary btn-ghost" v-on:click="seeBadge">查看徽章</button>
 
-    <pre class=" language-html"><code class=" language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>btn-group<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span></code></pre>
+        <div class="badge-url alert alert-success">http://127.0.0.1:8080/badge/{{label}}-{{message}}-{{color}}.svg?style={{style}}&labelColor={{labelColor}}</div>
+    </div>
 
     <h2>注意</h2>
     <div class="alert alert-warning">本项目目前仍旧处于测试版本，后续会不断完善。</div>
@@ -90,13 +101,26 @@
     </footer>
 </div>
 
+<script src="js/vue.js"></script>
 <script>
-    function generateBadge() {
-        var label = document.getElementById("label").value;
-        var message = document.getElementById("message").value;
-        var color = document.getElementById("color").value;
-        window.open('http://127.0.0.1:8080/badge/label-message-color.svg', '_blank');
-    }
+    new Vue({
+        el: '#mark-badge',
+        data: {
+            style: 'flat-square',
+            label: 'Hello',
+            message: 'Beacon',
+            color: 'brightgreen',
+            labelColor: '333'
+        },
+        // 在 `methods` 对象中定义方法
+        methods: {
+            seeBadge: function () {
+                var url = 'http://127.0.0.1:8080/badge/' + this.label + '-' + this.message + '-'
+                    + this.color + '.svg?style=' + this.style +'&labelColor=' + this.labelColor;
+                window.open(url, '_blank');
+            }
+        }
+    });
 </script>
 </body>
 </html>

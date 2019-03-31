@@ -24,6 +24,10 @@
     text-align-last: center;
 }
 
+.badge-url {
+    margin-top: 1rem;
+}
+
 :not(pre) > code[class*="language-"],
 pre[class*="language-"] {
     background-color: transparent;
@@ -31,9 +35,14 @@ pre[class*="language-"] {
 }
 
 .hack code {
+    padding: 0 4px;
     color: #e96900;
 }
 
 .hack .brightgreen {
     color: #4c1;
+}
+
+.hack .grey {
+    color: #555;
 }
