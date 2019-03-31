@@ -10,9 +10,7 @@ import io.swagger.annotations.ApiOperation;
 
 import javax.annotation.Resource;
 
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,20 +27,10 @@ import org.springframework.web.bind.annotation.RestController;
 @Api(tags = "徽章接口")
 @RestController
 @RequestMapping("/badge")
-public class BadgeController {
+public class BadgeController extends BaseBadgeController {
 
     @Resource
     private BadgeService badgeService;
-
-    /**
-     * 该实例全局的 HttpHeaders，设置返回内容为 svg.
-     */
-    private static HttpHeaders svgHeader;
-
-    static {
-        svgHeader = new HttpHeaders();
-        svgHeader.setContentType(MediaType.valueOf("image/svg+xml"));
-    }
 
     /**
      * 使用`-`的URL风格制作 svg 徽章的接口.
@@ -102,8 +90,8 @@ public class BadgeController {
             String labelColor, String style) {
         // 如果 message 是空的，则以 svg 徽章的方式来返回错误提示信息.
         if (StringUtils.isEmpty(message)) {
-            label = "400";
-            message = "message not found";
+            label = Integer.toString(HttpStatus.BAD_REQUEST.value());
+            message = MSG_NOT_FOUND;
             color = ColorKit.RED;
         }
 

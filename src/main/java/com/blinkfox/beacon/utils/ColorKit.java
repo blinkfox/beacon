@@ -28,7 +28,7 @@ public final class ColorKit {
     /**
      * 将 `#4c1` 作为徽章 message 的默认颜色.
      */
-    public static final String DEFAULT_COLOR = "#4c1";
+    static final String DEFAULT_COLOR = "#4c1";
 
     /**
      * 红色的key.
