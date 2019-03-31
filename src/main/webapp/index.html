@@ -9,7 +9,7 @@
 </head>
 
 <body class="hack">
-<div class="main container">
+<div id="badge-container" class="main container">
     <h1>Beacon - 轻量级 svg 徽章实时生成渲染服务</h1>
     <div class="alert alert-info">
         这是一个模仿 <a href="https://shields.io/" target="_blank">shields.io</a> 用来实时生成<code>svg</code>徽章的 Java Web 微服务。
@@ -28,29 +28,29 @@
     <h3>徽章样式风格</h3>
     <p>徽章支持以下多种样式风格，其中<code>flat</code>是默认的样式风格。</p>
     <div class="badge-style">
-        <img src="http://localhost:8080/badge/Hello-flat-green.svg?style=flat" alt="flat">
-        <img src="http://localhost:8080/badge/Hello/flat-square/green.svg?style=flat-square" alt="flat-square">
-        <img src="http://localhost:8080/badge/Hello-plastic-green.svg?style=plastic" alt="plastic">
-        <img src="http://localhost:8080/badge/Hello-social-green.svg?style=social" alt="social">
+        <img :src="style.flat" alt="flat">
+        <img src="{{host}}/badge/Hello/flat-square/green.svg?style=flat-square" alt="flat-square">
+        <img src="{{host}}/badge/Hello-plastic-green.svg?style=plastic" alt="plastic">
+        <img src="{{host}}/badge/Hello-social-green.svg?style=social" alt="social">
         <!-- 虽然支持下面两种，但这里先不展示下面两种"弹出式"的风格. -->
-        <!--<img src="http://localhost:8080//badge/Hello-popout-green.svg?style=popout" alt="popout">-->
-        <!--<img src="http://localhost:8080//badge/Hello/popout-square/green.svg?style=popout-square" alt="popout-square">-->
+        <!--<img src="{{host}}//badge/Hello-popout-green.svg?style=popout" alt="popout">-->
+        <!--<img src="{{host}}//badge/Hello/popout-square/green.svg?style=popout-square" alt="popout-square">-->
     </div>
 
     <h3>徽章颜色</h3>
     <p>徽章支持以下多种颜色，同时也支持任何3位或6位数的16进制颜色值（不含<code>#</code>号）。
         其中<code class="brightgreen">brightgreen</code>是默认颜色。</p>
     <div class="color-style">
-        <img src="http://localhost:8080/badge/-brightgreen-brightgreen.svg" alt="brightgreen">
-        <img src="http://localhost:8080/badge/-green-green.svg" alt="green">
-        <img src="http://localhost:8080/badge/-blue-blue.svg" alt="blue">
-        <img src="http://localhost:8080/badge/-yellowgreen-yellowgreen.svg" alt="yellowgreen">
-        <img src="http://localhost:8080/badge/-yellow-yellow.svg" alt="yellow">
-        <img src="http://localhost:8080/badge/-orange-orange.svg" alt="orange">
-        <img src="http://localhost:8080/badge/-red-red.svg" alt="red">
-        <img src="http://localhost:8080/badge/-blueviolet-blueviolet.svg" alt="blueviolet">
-        <img src="http://localhost:8080/badge/-grey-grey.svg" alt="grey">
-        <img src="http://localhost:8080/badge/-lightgrey-lightgrey.svg" alt="lightgrey">
+        <img src="{{host}}/badge/-brightgreen-brightgreen.svg" alt="brightgreen">
+        <img src="{{host}}/badge/-green-green.svg" alt="green">
+        <img src="{{host}}/badge/-blue-blue.svg" alt="blue">
+        <img src="{{host}}/badge/-yellowgreen-yellowgreen.svg" alt="yellowgreen">
+        <img src="{{host}}/badge/-yellow-yellow.svg" alt="yellow">
+        <img src="{{host}}/badge/-orange-orange.svg" alt="orange">
+        <img src="{{host}}/badge/-red-red.svg" alt="red">
+        <img src="{{host}}/badge/-blueviolet-blueviolet.svg" alt="blueviolet">
+        <img src="{{host}}/badge/-grey-grey.svg" alt="grey">
+        <img src="{{host}}/badge/-lightgrey-lightgrey.svg" alt="lightgrey">
     </div>
 
     <h2>制作徽章</h2>
@@ -68,17 +68,17 @@
     <p>在 Markdown 或者 HTML 中通过引用徽章的 <code>url</code> 即可，有效的引入 <code>url</code> 的方式有如下几种，供你参考：</p>
     <div class="badge-url alert alert-info">
         <span class="code-comment"># 仅有 message 的徽章.</span><br>
-        <a href="http://127.0.0.1:8080/badge/-Beacon-.svg" target="_blank">http://127.0.0.1:8080/badge/-Beacon-.svg</a><br><br>
+        <a href="{{host}}/badge/-Beacon-.svg" target="_blank">{{host}}/badge/-Beacon-.svg</a><br><br>
 
         <span class="code-comment"># 普通的含 label, message, color 的徽章.</span><br>
-        <a href="http://127.0.0.1:8080/badge/Hello-Beacon-blue.svg" target="_blank">http://127.0.0.1:8080/badge/Hello-Beacon-blue.svg</a><br><br>
+        <a href="{{host}}/badge/Hello-Beacon-blue.svg" target="_blank">{{host}}/badge/Hello-Beacon-blue.svg</a><br><br>
 
         <span class="code-comment"># 也可以使用 `/` 来分割参数生成徽章.</span><br>
-        <a href="http://127.0.0.1:8080/badge/Hello/Beacon/blue.svg" target="_blank">http://127.0.0.1:8080/badge/Hello/Beacon/blue.svg</a><br><br>
+        <a href="{{host}}/badge/Hello/Beacon/blue.svg" target="_blank">{{host}}/badge/Hello/Beacon/blue.svg</a><br><br>
 
         <span class="code-comment"># 这是比较全面的方式，相应的参数你可以视情况来添加加即可。</span><br>
-        <a href="http://127.0.0.1:8080/badge/Hello-Beacon-orange.svg?style=flat-square&labelColor=grey" target="_blank">http://127.0.0.1:8080/badge/Hello-Beacon-orange.svg?style=flat-square&labelColor=grey</a><br>
-        <a href="http://127.0.0.1:8080/badge/Github/1235/.svg?style=social" target="_blank">http://127.0.0.1:8080/badge/Github/1235/.svg?style=social</a><br>
+        <a href="{{host}}/badge/Hello-Beacon-orange.svg?style=flat-square&labelColor=grey" target="_blank">{{host}}/badge/Hello-Beacon-orange.svg?style=flat-square&labelColor=grey</a><br>
+        <a href="{{host}}/badge/Github/1235/.svg?style=social" target="_blank">{{host}}/badge/Github/1235/.svg?style=social</a><br>
     </div>
 
     <h3>尝试一下</h3>
@@ -109,7 +109,7 @@
         #<input id="labelColor" type="text" v-model="badge.labelColor" value="4c1" placeholder="labelColor" class="badge-input form-control">
         <button class="btn btn-info btn-ghost" @click="seeBadge">查看徽章</button>
 
-        <div class="badge-url alert alert-info">http://127.0.0.1:8080/badge/{{badge.label}}-{{badge.message}}-{{badge.color}}.svg?style={{badge.style}}&labelColor={{badge.labelColor}}</div>
+        <div class="badge-url alert alert-info">{{host}}/badge/{{badge.label}}-{{badge.message}}-{{badge.color}}.svg?style={{badge.style}}&labelColor={{badge.labelColor}}</div>
     </div>
 
     <h2>注意</h2>
@@ -123,8 +123,12 @@
 <script src="js/vue.js"></script>
 <script>
     new Vue({
-        el: '#mark-badge',
+        el: '#badge-container',
         data: {
+            host: 'http://127.0.0.1:8080',
+            style: {
+                flat: '/badge/Hello-flat-green.svg?style=flat'
+            },
             badge: {
                 label: 'Hello',
                 message: 'Beacon',
@@ -136,10 +140,13 @@
         // 在 `methods` 对象中定义方法
         methods: {
             seeBadge: function () {
-                var url = 'http://127.0.0.1:8080/badge/' + this.badge.label + '-' + this.badge.message + '-'
+                var url = this.host + '/badge/' + this.badge.label + '-' + this.badge.message + '-'
                     + this.badge.color + '.svg?style=' + this.badge.style +'&labelColor=' + this.badge.labelColor;
                 window.open(url, '_blank');
             }
+        },
+        mounted: function () {
+            this.style.flat = this.host + this.style.flat;
         }
     });
 </script>
