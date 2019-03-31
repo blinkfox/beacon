@@ -1,12 +1,15 @@
 package com.blinkfox.beacon.controller;
 
+import com.blinkfox.beacon.exception.BeaconException;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
@@ -40,6 +43,22 @@ public class IndexController {
     @ApiOperation(value = "Say Hello的示例接口")
     public ResponseEntity<String> say() {
         return ResponseEntity.ok("Hello Beacon!");
+    }
+
+    /**
+     * say hello world.
+     *
+     * @param name 名称
+     * @return string
+     */
+    @GetMapping("/exception")
+    @ResponseBody
+    @ApiOperation(value = "测试异常情况时的示例接口")
+    public ResponseEntity<String> exception(@RequestParam("name") String name) {
+        if (StringUtils.isEmpty(name)) {
+            throw new BeaconException("测试异常情况.");
+        }
+        return ResponseEntity.ok("Hello " + name);
     }
 
 }

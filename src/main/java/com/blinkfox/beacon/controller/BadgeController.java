@@ -10,7 +10,9 @@ import io.swagger.annotations.ApiOperation;
 
 import javax.annotation.Resource;
 
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,10 +29,22 @@ import org.springframework.web.bind.annotation.RestController;
 @Api(tags = "徽章接口")
 @RestController
 @RequestMapping("/badge")
-public class BadgeController extends BaseBadgeController {
+public class BadgeController {
+
+    /**
+     * message 没找到的提示的常量字符串.
+     */
+    private static final String MSG_NOT_FOUND = "message not found";
+
+    private static HttpHeaders svgHeader;
 
     @Resource
     private BadgeService badgeService;
+
+    static {
+        svgHeader = new HttpHeaders();
+        svgHeader.setContentType(MediaType.valueOf("image/svg+xml"));
+    }
 
     /**
      * 使用`-`的URL风格制作 svg 徽章的接口.

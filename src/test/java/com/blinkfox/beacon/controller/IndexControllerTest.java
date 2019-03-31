@@ -47,4 +47,19 @@ public class IndexControllerTest {
                 .andExpect(content().string("Hello Beacon!"));
     }
 
+    /**
+     * 测试有测试和有异常情况普通字符串数据的示例接口.
+     *
+     * @throws Exception 异常
+     */
+    @Test
+    public void exception() throws Exception {
+        this.mockMvc.perform(get("/exception?name=Zhangsan"))
+                .andExpect(status().isOk())
+                .andExpect(content().string("Hello Zhangsan"));
+
+        this.mockMvc.perform(get("/exception?name="))
+                .andExpect(status().isInternalServerError());
+    }
+
 }

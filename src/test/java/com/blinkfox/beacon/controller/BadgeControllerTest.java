@@ -55,6 +55,14 @@ public class BadgeControllerTest {
     }
 
     /**
+     * 测试使用`-`来获取徽章的方法.
+     */
+    @Test
+    public void getBadgeByDash2() throws Exception {
+        this.mockMvc.perform(get("/badge/hello--red.svg")).andExpect(status().isOk());
+    }
+
+    /**
      * 测试使用`/`来获取徽章的方法.
      */
     @Test

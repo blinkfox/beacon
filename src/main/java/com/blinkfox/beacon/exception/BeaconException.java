@@ -11,6 +11,15 @@ public class BeaconException extends RuntimeException {
      * 根据 Message 来构造异常实例.
      *
      * @param message 消息
+     */
+    public BeaconException(String message) {
+        super(message);
+    }
+
+    /**
+     * 根据 message 和 异常实例来构造异常实例.
+     *
+     * @param message 消息
      * @param e Throwable实例
      */
     public BeaconException(String message, Throwable e) {
