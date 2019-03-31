@@ -10,16 +10,16 @@
 
 <body class="hack">
 <div class="main container">
-    <h1>Beacon - 轻量级 svg 徽章实时生成服务</h1>
+    <h1>Beacon - 轻量级 svg 徽章实时生成渲染服务</h1>
     <div class="alert alert-info">
         这是一个模仿 <a href="https://shields.io/" target="_blank">shields.io</a> 用来实时生成 svg 徽章的 Java Web 微服务。
     </div>
 
     <h2>特性</h2>
-    <p><a href="https://github.com/blinkfox/beancon" target="_blank">Beacon</a> 是一个实时生成 svg 徽章的服务，你可以将本服务的徽章方便快捷的嵌入到你的 Markdown 或者 HTML 文件中。</p>
+    <p><a href="https://github.com/blinkfox/beancon" target="_blank">Beacon</a> 是一个实时生成<code>svg</code>徽章的服务，你可以将本服务的徽章方便快捷的嵌入到你的 Markdown 或者 HTML 文件中。</p>
     <ul>
         <li>轻量级、简单快速</li>
-        <li>易于集成，只需将 svg 徽章的链接信息按需修改即可</li>
+        <li>易于集成，只需将<code>svg</code>徽章的链接信息按需修改即可</li>
         <li>支持多种样式风格和颜色主题</li>
     </ul>
 
@@ -54,6 +54,7 @@
     </div>
 
     <h2>制作徽章</h2>
+    <h3>参数简介</h3>
     <p>制作徽章需要使用到以下几个参数，其中仅<code>message</code>参数是必须的：</p>
     <ul>
         <li><code>label</code>: 徽章左边的文字，如果不填写，将会是空值。</li>
@@ -63,12 +64,30 @@
         <li><code>labelColor</code>: 徽章左边的背景颜色，默认是<code class="grey">grey</code>，也可以填写任何16进制的颜色值（不含<code>#</code>号）。</li>
     </ul>
 
+    <h3>引用徽章</h3>
+    <p>在 Markdown 或者 HTML 中通过引用徽章的 <code>url</code> 即可，有效的引入 <code>url</code> 的方式有如下几种，供你参考：</p>
+    <div class="badge-url alert alert-info">
+        <span class="code-comment"># 仅有 message 的徽章.</span><br>
+        <a href="http://127.0.0.1:8080/badge/-Beacon-.svg" target="_blank">http://127.0.0.1:8080/badge/-Beacon-.svg</a><br><br>
+
+        <span class="code-comment"># 普通的含 label, message, color 的徽章.</span><br>
+        <a href="http://127.0.0.1:8080/badge/Hello-Beacon-blue.svg" target="_blank">http://127.0.0.1:8080/badge/Hello-Beacon-blue.svg</a><br><br>
+
+        <span class="code-comment"># 也可以使用 `/` 来分割参数生成徽章.</span><br>
+        <a href="http://127.0.0.1:8080/badge/Hello/Beacon/blue.svg" target="_blank">http://127.0.0.1:8080/badge/Hello/Beacon/blue.svg</a><br><br>
+
+        <span class="code-comment"># 这是比较全面的方式，相应的参数你可以视情况来添加加即可。</span><br>
+        <a href="http://127.0.0.1:8080/badge/Hello-Beacon-orange.svg?style=flat-square&labelColor=grey" target="_blank">http://127.0.0.1:8080/badge/Hello-Beacon-orange.svg?style=flat-square&labelColor=grey</a><br>
+        <a href="http://127.0.0.1:8080/badge/Github/1235/.svg?style=social" target="_blank">http://127.0.0.1:8080/badge/Github/1235/.svg?style=social</a><br>
+    </div>
+
+    <h3>尝试一下</h3>
     <p>你不妨通过改变下面的输入框的值来制作你喜欢的徽章：</p>
     <div id="mark-badge" class="make-bage">
-        <input id="label" type="text" v-model="label" placeholder="label" class="badge-input form-control">
-        <input id="message" type="text" v-model="message" placeholder="message" class="badge-input form-control">
-        <select id="color" v-model="color" class="badge-input form-control">
-            <option>brightgreen</option>
+        <input id="label" type="text" v-model="badge.label" placeholder="label" class="badge-input form-control">
+        <input id="message" type="text" v-model="badge.message" placeholder="message" class="badge-input form-control">
+        <select id="color" v-model="badge.color" class="badge-input form-control">
+            <option selected>brightgreen</option>
             <option>green</option>
             <option>blue</option>
             <option>yellowgreen</option>
@@ -79,18 +98,18 @@
             <option>grey</option>
             <option>lightgrey</option>
         </select>
-        <select id="badge-style" v-model="style" class="badge-input form-control">
-            <option label="flat">flat</option>
+        <select id="badge-style" class="badge-input form-control" v-model="badge.style">
+            <option selected>flat</option>
             <option>flat-square</option>
             <option>plastic</option>
-            <option>popout</option>
-            <option>popout-square</option>
+            <!--<option>popout</option>-->
+            <!--<option>popout-square</option>-->
             <option>social</option>
         </select>
-        #<input id="labelColor" type="text" v-model="labelColor" value="4c1" placeholder="labelColor" class="badge-input form-control">
-        <button class="btn btn-primary btn-ghost" v-on:click="seeBadge">查看徽章</button>
+        #<input id="labelColor" type="text" v-model="badge.labelColor" value="4c1" placeholder="labelColor" class="badge-input form-control">
+        <button class="btn btn-info btn-ghost" @click="seeBadge">查看徽章</button>
 
-        <div class="badge-url alert alert-success">http://127.0.0.1:8080/badge/{{label}}-{{message}}-{{color}}.svg?style={{style}}&labelColor={{labelColor}}</div>
+        <div class="badge-url alert alert-info">http://127.0.0.1:8080/badge/{{badge.label}}-{{badge.message}}-{{badge.color}}.svg?style={{badge.style}}&labelColor={{badge.labelColor}}</div>
     </div>
 
     <h2>注意</h2>
@@ -106,17 +125,19 @@
     new Vue({
         el: '#mark-badge',
         data: {
-            style: 'flat-square',
-            label: 'Hello',
-            message: 'Beacon',
-            color: 'brightgreen',
-            labelColor: '333'
+            badge: {
+                label: 'Hello',
+                message: 'Beacon',
+                color: 'brightgreen',
+                style: 'flat',
+                labelColor: 'grey'
+            }
         },
         // 在 `methods` 对象中定义方法
         methods: {
             seeBadge: function () {
-                var url = 'http://127.0.0.1:8080/badge/' + this.label + '-' + this.message + '-'
-                    + this.color + '.svg?style=' + this.style +'&labelColor=' + this.labelColor;
+                var url = 'http://127.0.0.1:8080/badge/' + this.badge.label + '-' + this.badge.message + '-'
+                    + this.badge.color + '.svg?style=' + this.badge.style +'&labelColor=' + this.badge.labelColor;
                 window.open(url, '_blank');
             }
         }

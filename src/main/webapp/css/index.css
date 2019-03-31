@@ -46,3 +46,7 @@ pre[class*="language-"] {
 .hack .grey {
     color: #555;
 }
+
+.hack .code-comment {
+    color: #999;
+}
