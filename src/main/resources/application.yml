@@ -8,6 +8,10 @@ spring:
     caffeine:
       spec: maximumSize=2000,expireAfterAccess=600s
 
+# 服务端口，将默认为2020.
+server:
+  port: 2020
+
 # 日志相关的简单配置.
 logging:
   file: logs/beacon.log

@@ -2,7 +2,7 @@
 <html lang="zh">
 <head>
     <meta charset="UTF-8"/>
-    <title>Beacon - 轻量级徽章生成服务.</title>
+    <title>Beacon - 轻量级徽章实时渲染服务.</title>
     <link rel="stylesheet" href="css/prism.css">
     <link rel="stylesheet" href="css/hack.css">
     <link rel="stylesheet" href="css/index.css">
@@ -10,13 +10,13 @@
 
 <body class="hack">
 <div id="badge-container" class="main container">
-    <h1>Beacon - 轻量级 svg 徽章实时生成渲染服务</h1>
+    <h1>Beacon - 轻量级 svg 徽章实时渲染服务</h1>
     <div class="alert alert-info">
         这是一个模仿 <a href="https://shields.io/" target="_blank">shields.io</a> 用来实时生成<code>svg</code>徽章的 Java Web 微服务。
     </div>
 
     <h2>特性</h2>
-    <p><a href="https://github.com/blinkfox/beancon" target="_blank">Beacon</a> 是一个实时生成<code>svg</code>徽章的服务，你可以将本服务的徽章方便快捷的嵌入到你的 Markdown 或者 HTML 文件中。</p>
+    <p><a href="https://github.com/blinkfox/beancon" target="_blank">Beacon</a> 是一个实时生成<code>svg</code>徽章的服务，你可以将本服务生成的徽章方便快捷的嵌入到你的 Markdown 或者 HTML 文件中。</p>
     <ul>
         <li>轻量级、简单快速</li>
         <li>易于集成，只需将<code>svg</code>徽章的链接信息按需修改即可</li>
@@ -29,28 +29,28 @@
     <p>徽章支持以下多种样式风格，其中<code>flat</code>是默认的样式风格。</p>
     <div class="badge-style">
         <img :src="style.flat" alt="flat">
-        <img src="{{host}}/badge/Hello/flat-square/green.svg?style=flat-square" alt="flat-square">
-        <img src="{{host}}/badge/Hello-plastic-green.svg?style=plastic" alt="plastic">
-        <img src="{{host}}/badge/Hello-social-green.svg?style=social" alt="social">
+        <img :src="style.flatSquare" alt="flat-square">
+        <img :src="style.plastic" alt="plastic">
+        <img :src="style.social" alt="social">
         <!-- 虽然支持下面两种，但这里先不展示下面两种"弹出式"的风格. -->
-        <!--<img src="{{host}}//badge/Hello-popout-green.svg?style=popout" alt="popout">-->
-        <!--<img src="{{host}}//badge/Hello/popout-square/green.svg?style=popout-square" alt="popout-square">-->
+        <!--<img src="/badge/Hello-popout-green.svg?style=popout" alt="popout">-->
+        <!--<img src="/badge/Hello/popout-square/green.svg?style=popout-square" alt="popout-square">-->
     </div>
 
     <h3>徽章颜色</h3>
     <p>徽章支持以下多种颜色，同时也支持任何3位或6位数的16进制颜色值（不含<code>#</code>号）。
         其中<code class="brightgreen">brightgreen</code>是默认颜色。</p>
     <div class="color-style">
-        <img src="{{host}}/badge/-brightgreen-brightgreen.svg" alt="brightgreen">
-        <img src="{{host}}/badge/-green-green.svg" alt="green">
-        <img src="{{host}}/badge/-blue-blue.svg" alt="blue">
-        <img src="{{host}}/badge/-yellowgreen-yellowgreen.svg" alt="yellowgreen">
-        <img src="{{host}}/badge/-yellow-yellow.svg" alt="yellow">
-        <img src="{{host}}/badge/-orange-orange.svg" alt="orange">
-        <img src="{{host}}/badge/-red-red.svg" alt="red">
-        <img src="{{host}}/badge/-blueviolet-blueviolet.svg" alt="blueviolet">
-        <img src="{{host}}/badge/-grey-grey.svg" alt="grey">
-        <img src="{{host}}/badge/-lightgrey-lightgrey.svg" alt="lightgrey">
+        <img :src="color.brightgreen" alt="brightgreen">
+        <img :src="color.green" alt="green">
+        <img :src="color.blue" alt="blue">
+        <img :src="color.yellowgreen" alt="yellowgreen">
+        <img :src="color.yellow" alt="yellow">
+        <img :src="color.orange" alt="orange">
+        <img :src="color.red" alt="red">
+        <img :src="color.blueviolet" alt="blueviolet">
+        <img :src="color.grey" alt="grey">
+        <img :src="color.lightgrey" alt="lightgrey">
     </div>
 
     <h2>制作徽章</h2>
@@ -68,17 +68,17 @@
     <p>在 Markdown 或者 HTML 中通过引用徽章的 <code>url</code> 即可，有效的引入 <code>url</code> 的方式有如下几种，供你参考：</p>
     <div class="badge-url alert alert-info">
         <span class="code-comment"># 仅有 message 的徽章.</span><br>
-        <a href="{{host}}/badge/-Beacon-.svg" target="_blank">{{host}}/badge/-Beacon-.svg</a><br><br>
+        <a :href="refLink.url1" target="_blank">{{host + refLink.url1}}</a><br><br>
 
         <span class="code-comment"># 普通的含 label, message, color 的徽章.</span><br>
-        <a href="{{host}}/badge/Hello-Beacon-blue.svg" target="_blank">{{host}}/badge/Hello-Beacon-blue.svg</a><br><br>
+        <a :href="refLink.url2" target="_blank">{{host + refLink.url2}}</a><br><br>
 
         <span class="code-comment"># 也可以使用 `/` 来分割参数生成徽章.</span><br>
-        <a href="{{host}}/badge/Hello/Beacon/blue.svg" target="_blank">{{host}}/badge/Hello/Beacon/blue.svg</a><br><br>
+        <a :href="refLink.url3" target="_blank">{{host + refLink.url3}}</a><br><br>
 
         <span class="code-comment"># 这是比较全面的方式，相应的参数你可以视情况来添加加即可。</span><br>
-        <a href="{{host}}/badge/Hello-Beacon-orange.svg?style=flat-square&labelColor=grey" target="_blank">{{host}}/badge/Hello-Beacon-orange.svg?style=flat-square&labelColor=grey</a><br>
-        <a href="{{host}}/badge/Github/1235/.svg?style=social" target="_blank">{{host}}/badge/Github/1235/.svg?style=social</a><br>
+        <a :href="refLink.url4" target="_blank">{{host + refLink.url4}}</a><br>
+        <a :href="refLink.url5" target="_blank">{{host + refLink.url5}}</a><br>
     </div>
 
     <h3>尝试一下</h3>
@@ -109,11 +109,14 @@
         #<input id="labelColor" type="text" v-model="badge.labelColor" value="4c1" placeholder="labelColor" class="badge-input form-control">
         <button class="btn btn-info btn-ghost" @click="seeBadge">查看徽章</button>
 
-        <div class="badge-url alert alert-info">{{host}}/badge/{{badge.label}}-{{badge.message}}-{{badge.color}}.svg?style={{badge.style}}&labelColor={{badge.labelColor}}</div>
+        <div class="badge-url alert alert-info">
+            <span class="code-comment"># 使用 `-` 形式的 url 来分割的徽章.</span><br>
+            {{host}}/badge/{{badge.label}}-{{badge.message}}-{{badge.color}}.svg?style={{badge.style}}&labelColor={{badge.labelColor}}<br><br>
+            <span class="code-comment"># 使用 `/` 形式的 url 来分割的徽章.</span><br>
+            {{host}}/badge/{{badge.label}}/{{badge.message}}/{{badge.color}}.svg?style={{badge.style}}&labelColor={{badge.labelColor}}
+        </div>
     </div>
 
-    <h2>注意</h2>
-    <div class="alert alert-warning">本项目目前仍旧处于测试版本，后续会不断完善。</div>
     <hr>
     <footer class="footer">
         本网站由 <a href="http://blinkfox.github.io" target="_blank">@blinkfox</a> 创建，本项目在 <a href="https://github.com/blinkfox/beancon" target="_blank">Github</a> 上已开源，欢迎您的<a href="" target="_blank">贡献</a>。
@@ -125,9 +128,31 @@
     new Vue({
         el: '#badge-container',
         data: {
-            host: 'http://127.0.0.1:8080',
+            host: 'http://127.0.0.1:2020',
             style: {
-                flat: '/badge/Hello-flat-green.svg?style=flat'
+                flat: '/badge/Hello-flat-green.svg?style=flat',
+                flatSquare: '/badge/Hello/flat-square/green.svg?style=flat-square',
+                plastic: '/badge/Hello-plastic-green.svg?style=plastic',
+                social: '/badge/Hello-social-green.svg?style=social'
+            },
+            color: {
+                brightgreen: '/badge/-brightgreen-brightgreen.svg',
+                green: '/badge/-green-green.svg',
+                blue: '/badge/-blue-blue.svg',
+                yellowgreen: '/badge/-yellowgreen-yellowgreen.svg',
+                yellow: '/badge/-yellow-yellow.svg',
+                orange: '/badge/-orange-orange.svg',
+                red: '/badge/-red-red.svg',
+                blueviolet: '/badge/-blueviolet-blueviolet.svg',
+                grey: '/badge/-grey-grey.svg',
+                lightgrey: '/badge/-lightgrey-lightgrey.svg'
+            },
+            refLink: {
+                url1: '/badge/-Beacon-.svg',
+                url2: '/badge/Hello-Beacon-blue.svg',
+                url3: '/badge/Hello/Beacon/blue.svg',
+                url4: '/badge/Hello-Beacon-orange.svg?style=flat-square&labelColor=grey',
+                url5: '/badge/Github/1235/.svg?style=social'
             },
             badge: {
                 label: 'Hello',
@@ -140,13 +165,10 @@
         // 在 `methods` 对象中定义方法
         methods: {
             seeBadge: function () {
-                var url = this.host + '/badge/' + this.badge.label + '-' + this.badge.message + '-'
-                    + this.badge.color + '.svg?style=' + this.badge.style +'&labelColor=' + this.badge.labelColor;
-                window.open(url, '_blank');
+                window.open(this.host + '/badge/' + this.badge.label + '-' + this.badge.message + '-'
+                    + this.badge.color + '.svg?style=' + this.badge.style +'&labelColor=' + this.badge.labelColor,
+                    '_blank');
             }
-        },
-        mounted: function () {
-            this.style.flat = this.host + this.style.flat;
         }
     });
 </script>
