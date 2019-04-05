@@ -31,6 +31,7 @@ public final class StyleKit {
         styleSet.add("popout");
         styleSet.add("popout-square");
         styleSet.add("social");
+        styleSet.add("myflat");
     }
 
     /**

@@ -54,6 +54,7 @@ public class BadgeController {
      * @param message 徽章左边的信息
      * @param color 徽章右边的颜色
      * @param labelColor 徽章左边的颜色
+     * @param logo LOGO，这里指 fontawesome 中的 icon 名称，如：github.
      * @param style 徽章风格
      * @return svg字符串
      */
@@ -64,8 +65,9 @@ public class BadgeController {
             @PathVariable(value = "color", required = false) String color,
             @RequestParam(value = "labelColor", required = false,
                     defaultValue = ColorKit.DEFAULT_LABEL_COLOR) String labelColor,
+            @RequestParam(value = "logo", required = false) String logo,
             @RequestParam(value = "style", required = false, defaultValue = StyleKit.DEFAULT_STYLE) String style) {
-        return this.getSvgBadge(label, message, color, labelColor, style);
+        return this.getSvgBadge(label, message, color, labelColor, logo, style);
     }
 
     /**
@@ -76,6 +78,7 @@ public class BadgeController {
      * @param message 徽章左边的信息
      * @param color 徽章右边的颜色
      * @param labelColor 徽章左边的颜色
+     * @param logo LOGO，这里指 fontawesome 中的 icon 名称，如：github.
      * @param style 徽章风格
      * @return svg字符串
      */
@@ -86,8 +89,9 @@ public class BadgeController {
             @PathVariable(value = "color", required = false) String color,
             @RequestParam(value = "labelColor", required = false,
                    defaultValue = ColorKit.DEFAULT_LABEL_COLOR) String labelColor,
+            @RequestParam(value = "logo", required = false) String logo,
             @RequestParam(value = "style", required = false, defaultValue = StyleKit.DEFAULT_STYLE) String style) {
-        return this.getSvgBadge(label, message, color, labelColor, style);
+        return this.getSvgBadge(label, message, color, labelColor, logo, style);
     }
 
     /**
@@ -97,11 +101,12 @@ public class BadgeController {
      * @param message 徽章左边的信息
      * @param color 徽章右边的颜色
      * @param labelColor 徽章左边的颜色
+     * @param logo LOGO，这里指 fontawesome 中的 icon 名称，如：github.
      * @param style 徽章风格
      * @return svg字符串
      */
     private ResponseEntity<String> getSvgBadge(String label, String message, String color,
-            String labelColor, String style) {
+            String labelColor, String logo, String style) {
         // 如果 message 是空的，则以 svg 徽章的方式来返回错误提示信息.
         if (StringUtils.isEmpty(message)) {
             label = Integer.toString(HttpStatus.BAD_REQUEST.value());
@@ -114,6 +119,7 @@ public class BadgeController {
                 .setMessage(message)
                 .setColor(color)
                 .setLabelColor(labelColor)
+                .setLogo(logo)
                 .setStyle(style)), svgHeader, HttpStatus.OK);
     }
 

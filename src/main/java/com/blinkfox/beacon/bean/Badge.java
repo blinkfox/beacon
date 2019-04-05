@@ -35,6 +35,11 @@ public class Badge {
     private String color;
 
     /**
+     * logo名称，这里指 fontawesome 中的 icon 名称，如：github.
+     */
+    private String logo;
+
+    /**
      * 徽章的样式风格，默认值是`flat`.
      */
     private String style;

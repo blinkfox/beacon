@@ -1,16 +1,22 @@
 package com.blinkfox.beacon.service;
 
 import com.blinkfox.beacon.bean.Badge;
+import com.blinkfox.beacon.utils.Base64Kit;
 import com.blinkfox.beacon.utils.ColorKit;
+import com.blinkfox.beacon.utils.ImageKit;
 import com.blinkfox.beacon.utils.StyleKit;
 import com.blinkfox.beacon.utils.TemplateKit;
 import com.blinkfox.beacon.utils.TextWidthKit;
 
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
+
+import javax.annotation.PostConstruct;
 
 /**
  * 徽章生成相关的Service.
@@ -24,6 +30,11 @@ public class BadgeService {
      * svg 文件后缀名.
      */
     private static final String SVG = ".svg";
+
+    @PostConstruct
+    public void init() {
+        ImageKit.init();
+    }
 
     /**
      * 根据 Badge 相关参数构建生成徽章.
@@ -43,6 +54,9 @@ public class BadgeService {
         contextMap.put("color", ColorKit.getHexColor(badge.getColor()));
         contextMap.put("leftWidth", TextWidthKit.calculate(badge.getLabel()));
         contextMap.put("rightWidth", TextWidthKit.calculate(badge.getMessage()));
+
+        String logo = badge.getLogo();
+        contextMap.put("logo", StringUtils.isEmpty(logo) ? null : Base64Kit.encodeBase64(logo.getBytes(StandardCharsets.UTF_8)));
 
         return TemplateKit.render(StyleKit.getStyle(badge.getStyle()) + SVG, contextMap);
     }
