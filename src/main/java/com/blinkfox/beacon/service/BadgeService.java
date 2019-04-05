@@ -3,7 +3,6 @@ package com.blinkfox.beacon.service;
 import com.blinkfox.beacon.bean.Badge;
 import com.blinkfox.beacon.utils.Base64Kit;
 import com.blinkfox.beacon.utils.ColorKit;
-import com.blinkfox.beacon.utils.ImageKit;
 import com.blinkfox.beacon.utils.StyleKit;
 import com.blinkfox.beacon.utils.TemplateKit;
 import com.blinkfox.beacon.utils.TextWidthKit;
@@ -15,8 +14,6 @@ import java.util.Map;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
-
-import javax.annotation.PostConstruct;
 
 /**
  * 徽章生成相关的Service.
@@ -30,11 +27,6 @@ public class BadgeService {
      * svg 文件后缀名.
      */
     private static final String SVG = ".svg";
-
-    @PostConstruct
-    public void init() {
-        ImageKit.init();
-    }
 
     /**
      * 根据 Badge 相关参数构建生成徽章.
