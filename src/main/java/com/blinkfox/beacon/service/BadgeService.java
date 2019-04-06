@@ -42,7 +42,7 @@ public class BadgeService {
         contextMap.put("labelWidth", labelWidth);
         contextMap.put("rightWidth", TextWidthKit.calculate(badge.getMessage()));
 
-        // 计算 logo 的Base64 链接，及logo 所占宽度、和内边宽度，并总计出左边的宽度.
+        // 计算 logo 的Base64 链接，及logo 所占宽度、和内边宽度，并总计出左边的总宽度.
         String logo = ImageKit.getSvgLogoLink(badge.getLogo(), badge.getLogoColor());
         int logoWidth = logo == null ? 0 : 14;
         int logoPadding = labelWidth == 0 || logo == null ? 0 : 3;

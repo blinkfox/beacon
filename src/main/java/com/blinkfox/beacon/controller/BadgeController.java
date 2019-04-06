@@ -65,7 +65,8 @@ public class BadgeController {
     public ResponseEntity<String> getBadgeByDash(@PathVariable("label") String label,
             @PathVariable("message") String message,
             @PathVariable(value = "color", required = false) String color,
-            @RequestParam(value = "labelColor", required = false, defaultValue = ColorKit.DEFAULT_LABEL_COLOR) String labelColor,
+            @RequestParam(value = "labelColor", required = false,
+                    defaultValue = ColorKit.DEFAULT_LABEL_COLOR) String labelColor,
             @RequestParam(value = "style", required = false, defaultValue = StyleKit.DEFAULT_STYLE) String style,
             @RequestParam(value = "logo", required = false) String logo,
             @RequestParam(value = "logoColor", required = false, defaultValue = ImageKit.WHITE) String logoColor) {
@@ -90,7 +91,8 @@ public class BadgeController {
     public ResponseEntity<String> getBadgeBySlash(@PathVariable("label") String label,
             @PathVariable("message") String message,
             @PathVariable(value = "color", required = false) String color,
-            @RequestParam(value = "labelColor", required = false, defaultValue = ColorKit.DEFAULT_LABEL_COLOR) String labelColor,
+            @RequestParam(value = "labelColor", required = false,
+                    defaultValue = ColorKit.DEFAULT_LABEL_COLOR) String labelColor,
             @RequestParam(value = "style", required = false, defaultValue = StyleKit.DEFAULT_STYLE) String style,
             @RequestParam(value = "logo", required = false) String logo,
             @RequestParam(value = "logoColor", required = false, defaultValue = ImageKit.WHITE) String logoColor) {
