@@ -5,7 +5,10 @@
   </g>
 
   <g fill="#fff" text-anchor="middle" font-family="DejaVu Sans,Verdana,Geneva,sans-serif" font-size="110">
-    <text x="${((leftWidth / 2) + 1) * 10}" y="240" transform="scale(0.1)" textLength="${(leftWidth - 10) * 10}" lengthAdjust="spacing">${label}</text>
+    @if (isNotEmpty(logo)) {
+    <image x="5" y="3" width="${logoWidth}" height="32" xlink:href="${logo}"/>
+    @}
+    <text x="${(((leftWidth + logoWidth + logoPadding) / 2) + 1) * 10}" y="240" transform="scale(0.1)" textLength="${(leftWidth - (10 + logoWidth + logoPadding)) * 10}" lengthAdjust="spacing">${label}</text>
     <text x="${(leftWidth + rightWidth / 2 - 1) * 10}" y="240" transform="scale(0.1)" textLength="${(rightWidth - 10) * 10}" lengthAdjust="spacing">${message}</text>
   </g>
 </svg>
