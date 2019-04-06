@@ -35,14 +35,19 @@ public class Badge {
     private String color;
 
     /**
+     * 徽章的样式风格，默认值是`flat`.
+     */
+    private String style;
+
+    /**
      * logo名称，这里指 fontawesome 中的 icon 名称，如：github.
      */
     private String logo;
 
     /**
-     * 徽章的样式风格，默认值是`flat`.
+     * logo的景颜色，默认只有黑、白两种颜色风格.
      */
-    private String style;
+    private String logoColor;
 
     /**
      * 重写的该 badge 实体的 toString() 方法.
@@ -56,6 +61,9 @@ public class Badge {
                 .append("', labelColor='").append(this.labelColor)
                 .append("', color='").append(this.color)
                 .append("', style='").append(this.style)
+                .append("', logo='").append(this.logo)
+                .append("', logoColor='").append(this.logoColor)
                 .append("'}").toString();
     }
+
 }

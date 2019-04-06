@@ -15,9 +15,14 @@ import lombok.NoArgsConstructor;
 public final class StyleKit {
 
     /**
-     * 将 `flat` 作为默认的徽章风格.
+     * 将 `flat` 作为默认的徽章风格的常量.
      */
     public static final String DEFAULT_STYLE = "flat";
+
+    /**
+     * 社交形式的徽章风格常量.
+     */
+    public static final String SOCIAL_STYLE = "social";
 
     /**
      * 存放各个徽章风格名称的 Set 集合，这里约定徽章风格的名称与 `svg` 模板名称保持一致.
@@ -26,11 +31,11 @@ public final class StyleKit {
 
     static {
         styleSet.add("plastic");
-        styleSet.add("flat");
+        styleSet.add(DEFAULT_STYLE);
         styleSet.add("flat-square");
         styleSet.add("popout");
         styleSet.add("popout-square");
-        styleSet.add("social");
+        styleSet.add(SOCIAL_STYLE);
     }
 
     /**

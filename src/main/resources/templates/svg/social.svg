@@ -1,11 +1,4 @@
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="${leftWidth + 1 + (isNotEmpty(message) ? rightWidth + 2 : 0)}" height="20">
-  <style type="text/css">
-    <![CDATA[
-    a #llink:hover { fill:url(#b); stroke:#ccc; }
-    a #rlink:hover { fill:#4183C4; }
-    ]]>
-  </style>
-
   <linearGradient id="a" x2="0" y2="100%">
     <stop offset="0" stop-color="#fcfcfc" stop-opacity="0"/>
     <stop offset="1" stop-opacity=".1"/>
@@ -25,9 +18,13 @@
     @}
   </g>
 
+  @if (isNotEmpty(logo)) {
+  <image x="5" y="3" width="${logoWidth}" height="14" xlink:href="${logo}"/>
+  @}
+
   <g fill="#333" text-anchor="middle" font-family="Helvetica Neue,Helvetica,Arial,sans-serif" font-weight="700" font-size="110px" line-height="14px">
-    <text x="${(leftWidth / 2) * 10}" y="150" fill="#fff" transform="scale(0.1)" textLength="${(leftWidth - 10) * 10}" lengthAdjust="spacing">${label}</text>
-    <text x="${(leftWidth / 2) * 10}" y="140" transform="scale(0.1)" textLength="${(leftWidth - 10) * 10}" lengthAdjust="spacing">${label}</text>
+    <text x="${((leftWidth + logoWidth + logoPadding) / 2) * 10}" y="150" fill="#fff" transform="scale(0.1)" textLength="${(leftWidth - (10 + logoWidth + logoPadding)) * 10}" lengthAdjust="spacing">${label}</text>
+    <text x="${((leftWidth + logoWidth + logoPadding) / 2) * 10}" y="140" transform="scale(0.1)" textLength="${(leftWidth - (10 + logoWidth + logoPadding)) * 10}" lengthAdjust="spacing">${label}</text>
     @if (isNotEmpty(message)) {
     <text x="${(leftWidth + (rightWidth - 4) / 2 + 6) * 10}" y="150" fill="#fff" transform="scale(0.1)" textLength="${(rightWidth - 12) * 10}" lengthAdjust="spacing">${message}</text>
     <text id="rlink" x="${(leftWidth + (rightWidth - 4) / 2 + 6) * 10}" y="140" transform="scale(0.1)" textLength="${(rightWidth - 12) * 10}" lengthAdjust="spacing">${message}</text>

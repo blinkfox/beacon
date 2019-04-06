@@ -1,34 +1,37 @@
 package com.blinkfox.beacon.utils;
 
 import org.junit.Assert;
-import org.junit.Before;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
+import org.junit.runners.MethodSorters;
 
 /**
- * ImageKitTest.
+ * ImageKit 的单元测试类，此类中的测试方法，有执行顺序的要求.
  *
  * @author blinkfox on 2019-04-05.
  */
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class ImageKitTest {
 
-    @Before
-    public void before() {
-
-    }
-
+    /**
+     * 测试加载所有 svg logo.
+     */
     @Test
-    public void loadAllSvgLogos() {
+    public void test1WithLoadAllSvgLogos() {
         ImageKit.logoMap.clear();
         ImageKit.loadAllSvgLogos("a");
         Assert.assertTrue(ImageKit.logoMap.isEmpty());
-        ImageKit.loadAllSvgLogos("logos/*.svg");
+        ImageKit.loadAllSvgLogos("logos/*/*.svg");
     }
 
+    /**
+     * 测试 svg 转为 base64 链接.
+     */
     @Test
-    public void svg2Base64Href() {
-        Assert.assertNull(ImageKit.getSvgLogoLink(null));
-        Assert.assertNull(ImageKit.getSvgLogoLink(""));
-        Assert.assertNotNull(ImageKit.getSvgLogoLink("github"));
+    public void test2WithSvg2Base64Href() {
+        Assert.assertNull(ImageKit.getSvgLogoLink(null, ImageKit.WHITE));
+        Assert.assertNull(ImageKit.getSvgLogoLink("", ImageKit.WHITE));
+        Assert.assertNotNull(ImageKit.getSvgLogoLink("github", ImageKit.BLACK));
     }
 
 }

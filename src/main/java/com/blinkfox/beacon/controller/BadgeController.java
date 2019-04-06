@@ -3,6 +3,7 @@ package com.blinkfox.beacon.controller;
 import com.blinkfox.beacon.bean.Badge;
 import com.blinkfox.beacon.service.BadgeService;
 import com.blinkfox.beacon.utils.ColorKit;
+import com.blinkfox.beacon.utils.ImageKit;
 import com.blinkfox.beacon.utils.StyleKit;
 
 import io.swagger.annotations.Api;
@@ -54,8 +55,9 @@ public class BadgeController {
      * @param message 徽章左边的信息
      * @param color 徽章右边的颜色
      * @param labelColor 徽章左边的颜色
-     * @param logo LOGO，这里指 fontawesome 中的 icon 名称，如：github.
      * @param style 徽章风格
+     * @param logo LOGO，这里指 fontawesome 中的 icon 名称，如：github.
+     * @param logoColor logo颜色，默认是白色，目前仅有黑白两种
      * @return svg字符串
      */
     @ApiOperation(value = "使用`-`的URL风格制作徽章的接口", notes = "通过 label, message, color 等参数来生成徽章的接口.")
@@ -63,11 +65,11 @@ public class BadgeController {
     public ResponseEntity<String> getBadgeByDash(@PathVariable("label") String label,
             @PathVariable("message") String message,
             @PathVariable(value = "color", required = false) String color,
-            @RequestParam(value = "labelColor", required = false,
-                    defaultValue = ColorKit.DEFAULT_LABEL_COLOR) String labelColor,
+            @RequestParam(value = "labelColor", required = false, defaultValue = ColorKit.DEFAULT_LABEL_COLOR) String labelColor,
+            @RequestParam(value = "style", required = false, defaultValue = StyleKit.DEFAULT_STYLE) String style,
             @RequestParam(value = "logo", required = false) String logo,
-            @RequestParam(value = "style", required = false, defaultValue = StyleKit.DEFAULT_STYLE) String style) {
-        return this.getSvgBadge(label, message, color, labelColor, logo, style);
+            @RequestParam(value = "logoColor", required = false, defaultValue = ImageKit.WHITE) String logoColor) {
+        return this.getSvgBadge(label, message, color, labelColor, style, logo, logoColor);
     }
 
     /**
@@ -78,8 +80,9 @@ public class BadgeController {
      * @param message 徽章左边的信息
      * @param color 徽章右边的颜色
      * @param labelColor 徽章左边的颜色
-     * @param logo LOGO，这里指 fontawesome 中的 icon 名称，如：github.
      * @param style 徽章风格
+     * @param logo LOGO，这里指 fontawesome 中的 icon 名称，如：github.
+     * @param logoColor logo颜色，默认是白色，目前仅有黑白两种
      * @return svg字符串
      */
     @ApiOperation(value = "使用`/`的URL风格制作徽章的接口", notes = "通过 label, message, color 等参数来生成徽章的接口.")
@@ -87,11 +90,11 @@ public class BadgeController {
     public ResponseEntity<String> getBadgeBySlash(@PathVariable("label") String label,
             @PathVariable("message") String message,
             @PathVariable(value = "color", required = false) String color,
-            @RequestParam(value = "labelColor", required = false,
-                   defaultValue = ColorKit.DEFAULT_LABEL_COLOR) String labelColor,
+            @RequestParam(value = "labelColor", required = false, defaultValue = ColorKit.DEFAULT_LABEL_COLOR) String labelColor,
+            @RequestParam(value = "style", required = false, defaultValue = StyleKit.DEFAULT_STYLE) String style,
             @RequestParam(value = "logo", required = false) String logo,
-            @RequestParam(value = "style", required = false, defaultValue = StyleKit.DEFAULT_STYLE) String style) {
-        return this.getSvgBadge(label, message, color, labelColor, logo, style);
+            @RequestParam(value = "logoColor", required = false, defaultValue = ImageKit.WHITE) String logoColor) {
+        return this.getSvgBadge(label, message, color, labelColor, style, logo, logoColor);
     }
 
     /**
@@ -101,12 +104,13 @@ public class BadgeController {
      * @param message 徽章左边的信息
      * @param color 徽章右边的颜色
      * @param labelColor 徽章左边的颜色
-     * @param logo LOGO，这里指 fontawesome 中的 icon 名称，如：github.
      * @param style 徽章风格
+     * @param logo LOGO，这里指 fontawesome 中的 icon 名称，如：github.
+     * @param logoColor logo颜色风格
      * @return svg字符串
      */
     private ResponseEntity<String> getSvgBadge(String label, String message, String color,
-            String labelColor, String logo, String style) {
+            String labelColor, String style, String logo, String logoColor) {
         // 如果 message 是空的，则以 svg 徽章的方式来返回错误提示信息.
         if (StringUtils.isEmpty(message)) {
             label = Integer.toString(HttpStatus.BAD_REQUEST.value());
@@ -114,13 +118,20 @@ public class BadgeController {
             color = ColorKit.RED;
         }
 
+        // 如果 style 是 social，则直接将 logoColor 设置为 black.
+        if (StyleKit.SOCIAL_STYLE.equals(style)) {
+            logoColor = ImageKit.BLACK;
+        }
+
+        // 调用 service 方法，生成 badge，并返回.
         return new ResponseEntity<>(badgeService.generate(new Badge()
                 .setLabel(label)
                 .setMessage(message)
                 .setColor(color)
                 .setLabelColor(labelColor)
+                .setStyle(style)
                 .setLogo(logo)
-                .setStyle(style)), svgHeader, HttpStatus.OK);
+                .setLogoColor(logoColor)), svgHeader, HttpStatus.OK);
     }
 
 }
