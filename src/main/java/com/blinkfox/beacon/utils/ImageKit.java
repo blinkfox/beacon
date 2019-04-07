@@ -43,7 +43,7 @@ public final class ImageKit {
      *
      * <p>注：由于总的图标所占空间还比较小，现在的内存完全够用，这里是全部的图标，不用做成 LRU缓存.</p>
      */
-    static final Map<String, String> logoMap = new HashMap<>();
+    static final Map<String, String> logoMap = new HashMap<>(4096);
 
     /**
      * svg 中引用 svg Base64 的 href 形式的前缀常量.
@@ -73,7 +73,7 @@ public final class ImageKit {
             }
             log.info("加载读取所有的 svg logo 成功.");
         } catch (IOException e) {
-            log.error("初始化读取 svg logos 出错，请检查！", e);
+            log.error("初始化读取 svg logo 出错，请检查！", e);
         }
     }
 
@@ -82,16 +82,16 @@ public final class ImageKit {
      * <p>如：data:image/svg+xml;base64,PD94bWwgdmVyc2lv ... L3N2Zz4=</p>
      *
      * @param logo fontawesome 的 icon 名称
-     * @param logoColor LOGO的颜色
+     * @param logoTheme LOGO的颜色主题
      */
-    public static String getSvgLogoLink(String logo, String logoColor) {
+    public static String getSvgLogoLink(String logo, String logoTheme) {
         // 如果 logo 为空，则直接返回 null.
         if (logo == null || "".equals(logo)) {
             return null;
         }
 
         // 设置logo颜色只有黑白两种，并拼接字符串作为key去查找该logo对应的 base64 的 image link.
-        return logoMap.get(new StringBuilder(BLACK.equals(logoColor) ? BLACK : WHITE)
+        return logoMap.get(new StringBuilder(BLACK.equals(logoTheme) ? BLACK : WHITE)
                 .append(SLASH).append(logo).append(Const.SVG).toString());
     }
 

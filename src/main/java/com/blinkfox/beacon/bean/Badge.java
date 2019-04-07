@@ -45,9 +45,9 @@ public class Badge {
     private String logo;
 
     /**
-     * logo的景颜色，默认只有黑、白两种颜色风格.
+     * logo的颜色主题，提供了黑、白两种颜色主题.
      */
-    private String logoColor;
+    private String logoTheme;
 
     /**
      * 重写的该 badge 实体的 toString() 方法.
@@ -62,7 +62,7 @@ public class Badge {
                 .append("', color='").append(this.color)
                 .append("', style='").append(this.style)
                 .append("', logo='").append(this.logo)
-                .append("', logoColor='").append(this.logoColor)
+                .append("', logoTheme='").append(this.logoTheme)
                 .append("'}").toString();
     }
 

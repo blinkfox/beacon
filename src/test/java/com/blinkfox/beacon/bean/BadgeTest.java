@@ -16,7 +16,7 @@ public class BadgeTest {
      * toString() 生成的字符串.
      */
     private static final String BADGE_STR = "{label='Hello', message='Beacon', labelColor='555', color='4c1', "
-            + "style='flat', logo='github', logoColor='white'}";
+            + "style='flat', logo='github', logoTheme='white'}";
 
     @Test
     public void testToString() {
@@ -27,7 +27,7 @@ public class BadgeTest {
                 .setLabelColor("555")
                 .setStyle("flat")
                 .setLogo("github")
-                .setLogoColor(ImageKit.WHITE)
+                .setLogoTheme(ImageKit.WHITE)
                 .toString());
     }
 

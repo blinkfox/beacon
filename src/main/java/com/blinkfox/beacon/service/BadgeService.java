@@ -31,19 +31,17 @@ public class BadgeService {
      */
     @Cacheable(cacheNames = "badge", key = "#badge.toString()")
     public String generate(Badge badge) {
-        // 分别计算该徽章 label 和 message 的16进制颜色值、徽章的风格以及徽章左右文本所需要占的宽度.
+        // 分别计算该徽章 label 和 message 的16进制颜色值、徽章的风格.
         // 并将这些值存放到 map 中作为参数上下文传递给beetl, 从而渲染出svg模板.
         Map<String, Object> contextMap = new HashMap<>(8);
         contextMap.put("label", badge.getLabel());
         contextMap.put("message", badge.getMessage());
         contextMap.put("labelColor", ColorKit.getHexLabelColor(badge.getLabelColor()));
         contextMap.put("color", ColorKit.getHexColor(badge.getColor()));
-        int labelWidth = TextWidthKit.calculate(badge.getLabel());
-        contextMap.put("labelWidth", labelWidth);
-        contextMap.put("rightWidth", TextWidthKit.calculate(badge.getMessage()));
 
-        // 计算 logo 的Base64 链接，及logo 所占宽度、和内边宽度，并总计出左边的总宽度.
-        String logo = ImageKit.getSvgLogoLink(badge.getLogo(), badge.getLogoColor());
+        // 计算 logo 的Base64 链接，及logo 所占宽度、和内边宽度，并总计出左右两边的总宽度.
+        int labelWidth = TextWidthKit.calculate(badge.getLabel());
+        String logo = ImageKit.getSvgLogoLink(badge.getLogo(), badge.getLogoTheme());
         int logoWidth = logo == null ? 0 : 14;
         int logoPadding = labelWidth == 0 || logo == null ? 0 : 3;
         contextMap.put("logo", logo);
@@ -51,6 +49,7 @@ public class BadgeService {
         contextMap.put("logoPadding", logoPadding);
         contextMap.put("leftWidth", labelWidth == 0 && logoWidth > 0 ? logoWidth + 10
                 : labelWidth + logoWidth + logoPadding);
+        contextMap.put("rightWidth", TextWidthKit.calculate(badge.getMessage()));
 
         // 渲染 对应 style 的 svg 模板，并直接返回结果.
         return TemplateKit.render(StyleKit.getStyle(badge.getStyle()) + Const.SVG, contextMap);
