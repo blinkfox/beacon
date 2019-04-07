@@ -16,7 +16,7 @@
 </a>
 
 <div id="badge-container" class="main container">
-    <h1><img :src="logo" class="logo" alt="logo"> Beacon - 轻量级 svg 徽章实时渲染服务</h1>
+    <h1><img :src="beaconLogo" class="logo" alt="logo"> Beacon - 轻量级 svg 徽章实时渲染服务</h1>
     <div class="alert alert-info">
         这是一个模仿 <a href="https://shields.io/" target="_blank">shields.io</a> 用来实时生成<code>svg</code>徽章的 Java Web 微服务。
     </div>
@@ -27,6 +27,7 @@
         <li>轻量级、简单快速</li>
         <li>易于集成，只需将<code>svg</code>徽章的链接信息按需修改即可</li>
         <li>支持多种样式风格和颜色主题</li>
+        <li>支持绝大多数的 <a href="http://fontawesome.dashgame.com/#top" target="_blank">Font Awesome</a> 图标及黑白两种主题</li>
     </ul>
 
     <h2>徽章介绍</h2>
@@ -59,6 +60,14 @@
         <img :src="color.lightgrey" alt="lightgrey">
     </div>
 
+    <h3>徽章 LOGO</h3>
+    <p>徽章支持绝大多数的 <a href="http://fontawesome.dashgame.com/#top" target="_blank">Font Awesome</a> 图标及黑白两种主题。
+        其中<code>white</code>是默认的 LOGO 颜色主题。</p>
+    <div class="color-style">
+        <img :src="logo.white" alt="white">
+        <img :src="logo.black" alt="black">
+    </div>
+
     <h2>制作徽章</h2>
     <h3>参数简介</h3>
     <p>制作徽章需要使用到以下几个参数，其中仅<code>message</code>参数是必须的：</p>
@@ -68,6 +77,8 @@
         <li><code>color</code>: 徽章右边的背景颜色，如果不填写，将会是<code class="brightgreen">brightgreen</code>，也可以填写任何16进制的颜色值（不含<code>#</code>号）。</li>
         <li><code>style</code>: 徽章的整体风格，默认是<code>flat</code>。</li>
         <li><code>labelColor</code>: 徽章左边的背景颜色，默认是<code class="grey">grey</code>，也可以填写任何16进制的颜色值（不含<code>#</code>号）。</li>
+        <li><code>logo</code>: 徽章左边的 LOGO，值为 <a href="http://fontawesome.dashgame.com/#top" target="_blank">Font Awesome</a> 中的图标名称，如果不填写或者图标不存在则视为没有。</li>
+        <li><code>logoTheme</code>: 徽章 LOGO 的颜色主题，有黑白两种，默认是白色主题，如果 style 为<code>social</code>时，则 LOGO 会自动切换为黑色主题。</li>
     </ul>
 
     <h3>引用徽章</h3>
@@ -82,7 +93,10 @@
         <span class="code-comment"># 也可以使用 `/` 来分割参数生成徽章.</span><br>
         <a :href="refLink.url3" target="_blank">{{host + refLink.url3}}</a><br><br>
 
-        <span class="code-comment"># 这是比较全面的方式，相应的参数你可以视情况来添加加即可。</span><br>
+        <span class="code-comment">含 LOGO 的徽章.</span><br>
+        <a :href="refLink.url3" target="_blank">{{host + refLink.urlLogo}}</a><br><br>
+
+        <span class="code-comment"># 这是比较全面的方式，相应的参数你可以视情况来添加或修改即可。</span><br>
         <a :href="refLink.url4" target="_blank">{{host + refLink.url4}}</a><br>
         <a :href="refLink.url5" target="_blank">{{host + refLink.url5}}</a><br>
     </div>
@@ -113,6 +127,8 @@
             <option>social</option>
         </select>
         #<input id="labelColor" type="text" v-model="badge.labelColor" value="4c1" placeholder="labelColor" class="badge-input form-control">
+        <input id="logo" type="text" v-model="badge.logo" value="4c1" placeholder="logo" class="badge-input form-control">
+        <input id="logoTheme" type="text" v-model="badge.logoTheme" value="white" placeholder="logoTheme" class="badge-input form-control">
         <button class="btn btn-info btn-ghost" @click="seeBadge">查看徽章</button>
 
         <div class="badge-url alert alert-info">
@@ -135,7 +151,7 @@
         el: '#badge-container',
         data: {
             host: 'http://127.0.0.1:2020',
-            logo: '/badge/Bea-con-.svg',
+            beaconLogo: '/badge/Bea-con-.svg',
             style: {
                 flat: '/badge/Hello-flat-green.svg?style=flat',
                 flatSquare: '/badge/Hello/flat-square/green.svg?style=flat-square',
@@ -154,19 +170,26 @@
                 grey: '/badge/-grey-grey.svg',
                 lightgrey: '/badge/-lightgrey-lightgrey.svg'
             },
+            logo: {
+                white: '/badge/Logo-white-brightgreen.svg?logo=github',
+                black: '/badge/Logo-black-.svg?logo=github&style=social'
+            },
             refLink: {
                 url1: '/badge/-Beacon-.svg',
                 url2: '/badge/Hello-Beacon-blue.svg',
                 url3: '/badge/Hello/Beacon/blue.svg',
-                url4: '/badge/Hello-Beacon-orange.svg?style=flat-square&labelColor=grey',
-                url5: '/badge/Github/1235/.svg?style=social'
+                urlLogo: '/badge/Logo-White-brightgreen.svg?logo=gitlab',
+                url4: '/badge/Hello-Beacon-orange.svg?style=flat-square&labelColor=grey&logo=gitlab',
+                url5: '/badge/Github/1235/.svg?style=social&logo=github'
             },
             badge: {
                 label: 'Hello',
                 message: 'Beacon',
                 color: 'brightgreen',
                 style: 'flat',
-                labelColor: 'grey'
+                labelColor: 'grey',
+                logo: '',
+                logoTheme: 'white'
             }
         },
         // 在 `methods` 对象中定义方法
