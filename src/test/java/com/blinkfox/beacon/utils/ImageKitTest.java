@@ -31,6 +31,10 @@ public class ImageKitTest {
     public void test2WithSvg2Base64Href() {
         Assert.assertNull(ImageKit.getSvgLogoLink(null, ImageKit.WHITE));
         Assert.assertNull(ImageKit.getSvgLogoLink("", ImageKit.WHITE));
+
+        String logo = "data:image/gif;base64,aaa";
+        Assert.assertEquals(logo, ImageKit.getSvgLogoLink(logo, ImageKit.WHITE));
+
         Assert.assertNotNull(ImageKit.getSvgLogoLink("github", ImageKit.BLACK));
     }
 

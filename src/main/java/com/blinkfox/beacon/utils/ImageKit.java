@@ -51,6 +51,11 @@ public final class ImageKit {
     private static final String XLINK_HREF = "data:image/svg+xml;base64,";
 
     /**
+     * 页面中需要判断引用的带 image 前缀的 base64 前缀常量.
+     */
+    private static final String DATA_IMAGE_PREFIX = "data:image/";
+
+    /**
      * 斜线分隔符.
      */
     private static final String SLASH = "/";
@@ -88,6 +93,11 @@ public final class ImageKit {
         // 如果 logo 为空，则直接返回 null.
         if (logo == null || "".equals(logo)) {
             return null;
+        }
+
+        // 如果 logo 的值以 data:image/ 开头，则说明前端传过来的就是 Base64 的字符串，可直接使用直接返回即可.
+        if (logo.startsWith(DATA_IMAGE_PREFIX)) {
+            return logo;
         }
 
         // 设置logo颜色只有黑白两种，并拼接字符串作为key去查找该logo对应的 base64 的 image link.
