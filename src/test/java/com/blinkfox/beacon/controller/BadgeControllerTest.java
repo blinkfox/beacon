@@ -70,4 +70,12 @@ public class BadgeControllerTest {
         this.mockMvc.perform(get("/badge/hello/my-world/red.svg")).andExpect(status().isOk());
     }
 
+    /**
+     * 测试使用`/`来获取徽章的方法.
+     */
+    @Test
+    public void getBadgeBySlashWithStyle() throws Exception {
+        this.mockMvc.perform(get("/badge/hello/my-world/red.svg?style=social")).andExpect(status().isOk());
+    }
+
 }

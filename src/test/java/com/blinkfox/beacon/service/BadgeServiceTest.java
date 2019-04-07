@@ -1,6 +1,7 @@
 package com.blinkfox.beacon.service;
 
 import com.blinkfox.beacon.bean.Badge;
+
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
