@@ -94,7 +94,7 @@
         <a :href="refLink.url3" target="_blank">{{host + refLink.url3}}</a><br><br>
 
         <span class="code-comment">含 LOGO 的徽章.</span><br>
-        <a :href="refLink.url3" target="_blank">{{host + refLink.urlLogo}}</a><br><br>
+        <a :href="refLink.urlLogo" target="_blank">{{host + refLink.urlLogo}}</a><br><br>
 
         <span class="code-comment"># 这是比较全面的方式，相应的参数你可以视情况来添加或修改即可。</span><br>
         <a :href="refLink.url4" target="_blank">{{host + refLink.url4}}</a><br>
@@ -127,15 +127,18 @@
             <option>social</option>
         </select>
         #<input id="labelColor" type="text" v-model="badge.labelColor" value="4c1" placeholder="labelColor" class="badge-input form-control">
-        <input id="logo" type="text" v-model="badge.logo" value="4c1" placeholder="logo" class="badge-input form-control">
-        <input id="logoTheme" type="text" v-model="badge.logoTheme" value="white" placeholder="logoTheme" class="badge-input form-control">
+        <input id="logo" type="text" v-model="badge.logo" value="github" placeholder="logo" class="badge-input form-control">
+        <select id="badge-logoTheme" class="badge-input form-control" v-model="badge.logoTheme">
+            <option selected>white</option>
+            <option>black</option>
+        </select>
         <button class="btn btn-info btn-ghost" @click="seeBadge">查看徽章</button>
 
         <div class="badge-url alert alert-info">
             <span class="code-comment"># 使用 `-` 形式的 url 来分割的徽章.</span><br>
-            {{host}}/badge/{{badge.label}}-{{badge.message}}-{{badge.color}}.svg?style={{badge.style}}&labelColor={{badge.labelColor}}<br><br>
+            {{host}}/badge/{{badge.label}}-{{badge.message}}-{{badge.color}}.svg?style={{badge.style}}&labelColor={{badge.labelColor}}&logo={{badge.logo}}&logoTheme={{badge.logoTheme}}<br><br>
             <span class="code-comment"># 使用 `/` 形式的 url 来分割的徽章.</span><br>
-            {{host}}/badge/{{badge.label}}/{{badge.message}}/{{badge.color}}.svg?style={{badge.style}}&labelColor={{badge.labelColor}}
+            {{host}}/badge/{{badge.label}}/{{badge.message}}/{{badge.color}}.svg?style={{badge.style}}&labelColor={{badge.labelColor}}&logo={{badge.logo}}&logoTheme={{badge.logoTheme}}
         </div>
     </div>
 
@@ -188,7 +191,7 @@
                 color: 'brightgreen',
                 style: 'flat',
                 labelColor: 'grey',
-                logo: '',
+                logo: 'github',
                 logoTheme: 'white'
             }
         },
@@ -196,8 +199,8 @@
         methods: {
             seeBadge: function () {
                 window.open(this.host + '/badge/' + this.badge.label + '-' + this.badge.message + '-'
-                    + this.badge.color + '.svg?style=' + this.badge.style +'&labelColor=' + this.badge.labelColor,
-                    '_blank');
+                    + this.badge.color + '.svg?style=' + this.badge.style +'&labelColor=' + this.badge.labelColor
+                    + '&logo=' + this.badge.logo + '&logoTheme=' + this.badge.logoTheme, '_blank');
             }
         }
     });

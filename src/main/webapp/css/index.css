@@ -2,6 +2,10 @@
     padding: 20px 10px;
 }
 
+.hack .container {
+    max-width: 75rem;
+}
+
 .github-corner svg {
     position: absolute;
     top: 0;
@@ -35,7 +39,7 @@
 }
 
 .badge-input {
-    width: 8rem;
+    width: 7.5rem;
     margin-right: 0.35rem;
     text-align: center;
     text-align-last: center;
