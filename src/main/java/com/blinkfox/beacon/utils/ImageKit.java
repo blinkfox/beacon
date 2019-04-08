@@ -1,6 +1,7 @@
 package com.blinkfox.beacon.utils;
 
 import com.blinkfox.beacon.consts.Const;
+import com.blinkfox.beacon.exception.BeaconException;
 
 import java.io.File;
 import java.io.IOException;
@@ -43,7 +44,7 @@ public final class ImageKit {
      *
      * <p>注：由于总的图标所占空间还比较小，现在的内存完全够用，这里是全部的图标，不用做成 LRU缓存.</p>
      */
-    static final Map<String, String> logoMap = new HashMap<>(4096);
+    private static final Map<String, String> logoMap = new HashMap<>(4096);
 
     /**
      * svg 中引用 svg Base64 的 href 形式的前缀常量.
@@ -60,10 +61,18 @@ public final class ImageKit {
      */
     private static final String SLASH = "/";
 
-    static {
+    /**
+     * 加载所有svg icon 图标资源的 Base64 数据到内存中.
+     */
+    public static void loadAllSvgLogos() {
         loadAllSvgLogos("logos/*/*.svg");
     }
 
+    /**
+     * 加载所有svg icon 图标资源的 Base64 数据到内存中.
+     *
+     * @param pattern 根据可规则匹配的路径加载所有svg icon 图标资源的 Base64 数据到内存中.
+     */
     static void loadAllSvgLogos(String pattern) {
         try {
             // 读取到项目中的所有 svg logo 文件，将logo 文件中的内容全部转换为 href 可引用的 base64 字符串，
@@ -78,7 +87,7 @@ public final class ImageKit {
             }
             log.info("加载读取所有的 svg logo 成功.");
         } catch (IOException e) {
-            log.error("初始化读取 svg logo 出错，请检查！", e);
+            throw new BeaconException("初始化读取 svg logo 出错，请检查！", e);
         }
     }
 

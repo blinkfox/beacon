@@ -1,5 +1,7 @@
 package com.blinkfox.beacon.utils;
 
+import com.blinkfox.beacon.exception.BeaconException;
+
 import org.junit.Assert;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
@@ -16,12 +18,9 @@ public class ImageKitTest {
     /**
      * 测试加载所有 svg logo.
      */
-    @Test
+    @Test(expected = BeaconException.class)
     public void test1WithLoadAllSvgLogos() {
-        ImageKit.logoMap.clear();
         ImageKit.loadAllSvgLogos("a");
-        Assert.assertTrue(ImageKit.logoMap.isEmpty());
-        ImageKit.loadAllSvgLogos("logos/*/*.svg");
     }
 
     /**
@@ -29,6 +28,8 @@ public class ImageKitTest {
      */
     @Test
     public void test2WithSvg2Base64Href() {
+        ImageKit.loadAllSvgLogos();
+
         Assert.assertNull(ImageKit.getSvgLogoLink(null, ImageKit.WHITE));
         Assert.assertNull(ImageKit.getSvgLogoLink("", ImageKit.WHITE));
 

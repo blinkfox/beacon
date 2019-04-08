@@ -1,5 +1,6 @@
 package com.blinkfox.beacon.config;
 
+import com.blinkfox.beacon.utils.ImageKit;
 import com.blinkfox.beacon.utils.TemplateKit;
 
 import lombok.extern.slf4j.Slf4j;
@@ -26,7 +27,8 @@ public class StartupRunner implements ApplicationRunner {
     public void run(ApplicationArguments args) {
         // 初始化 beetl 模板和 svg icon 资源.
         TemplateKit.initTemplate();
-        log.info("Beacon 服务已启动成功.");
+        ImageKit.loadAllSvgLogos();
+        log.error("Beacon 服务已启动成功.");
     }
 
 }
