@@ -1,5 +1,7 @@
 package com.blinkfox.beacon.utils;
 
+import com.blinkfox.beacon.exception.BeaconException;
+
 import java.io.IOException;
 import java.util.Map;
 
@@ -26,16 +28,27 @@ public final class TemplateKit {
      */
     private static GroupTemplate groupTemplate;
 
-    static {
-        // 使用 beetl 初始化配置模板路径下的 svg 模板资源.
+    /**
+     * 初始化 svg 模板资源.
+     */
+    public static void initTemplate() {
+        initTemplateByPath("/templates/svg/");
+    }
+
+    /**
+     * 根据 path 初始化 beetl 的模板资源.
+     *
+     * @param path 资源路径
+     */
+    static void initTemplateByPath(String path) {
         try {
             Configuration cfg = Configuration.defaultConfiguration();
             cfg.setStatementStart("@");
             cfg.setStatementEnd(null);
             cfg.getResourceMap().put("autoCheck", "false");
-            groupTemplate = new GroupTemplate(new ClasspathResourceLoader("/templates/svg/"), cfg);
+            groupTemplate = new GroupTemplate(new ClasspathResourceLoader(path), cfg);
         } catch (IOException e) {
-            log.error("使用 beetl 初始化配置 svg 模版出错！", e);
+            throw new BeaconException("使用 beetl 初始化配置 svg 模版出错！", e);
         }
     }
 
