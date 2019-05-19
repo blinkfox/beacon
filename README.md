@@ -41,3 +41,4 @@ mvn spring-boot:run
 
 ### 部署
 
+你可以直接 `mvn package` 之后，将此服务通过 [jpack](https://github.com/blinkfox/jpack-maven-plugin) 生成的包部署起来。
