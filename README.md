@@ -42,3 +42,13 @@ mvn spring-boot:run
 ### 部署
 
 你可以直接 `mvn package` 之后，将此服务通过 [jpack](https://github.com/blinkfox/jpack-maven-plugin) 生成的包部署起来。
+
+## 首页效果
+
+以下是启动服务之后的首页效果，供你参考和了解本项目：
+
+![首页效果1](http://static.blinkfox.com/beacon-index-view1.png)
+
+![首页效果2](http://static.blinkfox.com/beacon-index-view2.png)
+
+![首页效果3](http://static.blinkfox.com/beacon-index-view3.png)
