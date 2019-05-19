@@ -23,8 +23,8 @@ public class ErrorPageConfig {
     @Bean
     public WebServerFactoryCustomizer<ConfigurableWebServerFactory> webServerFactoryCustomizer() {
         return factory -> {
-            factory.addErrorPages(new ErrorPage(HttpStatus.NOT_FOUND, "/404.html"));
-            factory.addErrorPages(new ErrorPage(HttpStatus.INTERNAL_SERVER_ERROR, "/500.html"));
+            factory.addErrorPages(new ErrorPage(HttpStatus.NOT_FOUND, "/404.svg"));
+            factory.addErrorPages(new ErrorPage(HttpStatus.INTERNAL_SERVER_ERROR, "/500.svg"));
         };
     }
 

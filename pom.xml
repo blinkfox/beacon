@@ -5,13 +5,13 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.1.4.RELEASE</version>
+        <version>2.1.5.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
     <groupId>com.blinkfox</groupId>
     <artifactId>beacon</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>1.0.0</version>
     <name>beacon</name>
     <description>这是一个模仿 shields.io 用来生成 svg 徽章的 Java Web 微服务.</description>
     <url>https://github.com/blinkfox/beancon</url>
@@ -135,6 +135,19 @@
                     <targetJdk>1.8</targetJdk>
                     <printFailingErrors>true</printFailingErrors>
                 </configuration>
+            </plugin>
+            <!-- jpack-maven-plugin 打包成各平台可部署包的插件 -->
+            <plugin>
+                <groupId>com.blinkfox</groupId>
+                <artifactId>jpack-maven-plugin</artifactId>
+                <version>1.1.0</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>build</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
             <!-- Code Coverage -->
             <plugin>
